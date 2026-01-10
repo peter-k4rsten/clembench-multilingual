@@ -1,0 +1,10 @@
+{
+  "FLAGS": {
+    "description": "DESCRIPTION:",
+    "question": "QUESTION:",
+    "answer": "ANSWER:",
+    "decision": "DECISION:"
+  },
+  "SOL_SAME": "same grid",
+  "SOL_DIFF": "different grids"
+}
