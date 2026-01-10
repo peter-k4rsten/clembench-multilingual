@@ -13,7 +13,7 @@ from clemcore.clemgame import GameInstanceGenerator
 from privateshared.constants import PROBES_PATH, REQUESTS_PATH, SLOT_PATH, PROMPT_PATH, WORDS_PATH, EXPERIMENTS
 
 ID = 1
-LANG = 'en'
+LANG = ['en', 'hu']
 # SEED = 2102  # old/v1.6 seed
 N_INSTANCES = 10
 
@@ -70,22 +70,27 @@ class PrivateSharedGameInstanceGenerator(GameInstanceGenerator):
 
     def __init__(self):
         super().__init__(os.path.dirname(__file__))
-        words = self.load_json(WORDS_PATH.format(LANG))
+        # moved lang to on_generate
+
+
+    def on_generate(self, seed: int, **kwargs):
+        """Generate configuration of all experiments."""
+
+        lang = kwargs["lang"]
+        # load language-specific words
+        words = self.load_json(WORDS_PATH.format(lang))
         self.tags = words['tags']
         self.answer = words["ANSWER"]
         self.aside = words["ASIDE"]
         self.me = words["ME"]
 
-    def on_generate(self, seed: int, **kwargs):
-        """Generate configuration of all experiments."""
-
         for exp_name in EXPERIMENTS:
             # load all necessary contents
-            probes = self.load_json(PROBES_PATH.format(exp_name))
-            requests = self.load_json(REQUESTS_PATH.format(exp_name))
-            slot_values = self.load_json(SLOT_PATH.format(exp_name))
+            probes = self.load_json(PROBES_PATH.format(lang, exp_name))
+            requests = self.load_json(REQUESTS_PATH.format(lang, exp_name))
+            slot_values = self.load_json(SLOT_PATH.format(lang, exp_name))
             experiment = self.add_experiment(exp_name)
-            prompt = self.load_template(PROMPT_PATH.format(exp_name, ID))
+            prompt = self.load_template(PROMPT_PATH.format(lang, exp_name, ID))
 
             for game_id in tqdm(range(N_INSTANCES)):
                 game_instance = self.add_game_instance(experiment, game_id)
@@ -100,7 +105,7 @@ class PrivateSharedGameInstanceGenerator(GameInstanceGenerator):
                 game_instance['request_order'] = sample_request_order(requests)
                 game_instance['requests'] = sample_request_texts(requests)
                 game_instance['probes'] = sample_probes(probes, n_slots)
-                game_instance['lang'] = LANG
+                game_instance['lang'] = lang
 
     def create_prompt(self, prompt: str, instance: str, tag: str) -> str:
         """Fill in the initial prompt variables."""
@@ -113,4 +118,9 @@ class PrivateSharedGameInstanceGenerator(GameInstanceGenerator):
 
 
 if __name__ == '__main__':
-    PrivateSharedGameInstanceGenerator().generate(seed=42)
+    for lang in LANG:
+        PrivateSharedGameInstanceGenerator().generate(
+            seed=42,
+            lang=lang,
+            filename=f"instances_v3.0_{lang}.json"
+        )

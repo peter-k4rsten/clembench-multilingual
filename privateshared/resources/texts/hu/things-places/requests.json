@@ -1,0 +1,47 @@
+{
+    "left": [
+        "Mi van tőled balra?"
+    ],
+    "right": [
+        "Mi van tőled jobbra?"
+    ],
+    "top": [
+        "Mi van felül?"
+    ],
+    "bottom": [
+        "Mi van alul?"
+    ],
+    "center": [
+        "Mi van középen?"
+    ],
+    "northwest": [
+        "Mi van északnyugaton?"
+    ],
+    "northeast": [
+        "Mi van északkeleten?"
+    ],
+    "southwest": [
+        "Mi van délnyugaton?"
+    ],
+    "southeast": [
+        "Mi van délkeleten?"
+    ],
+    "here": [
+        "Mi van itt?"
+    ],
+    "there": [
+        "Mi van ott?"
+    ],
+    "nowhere": [
+        "Mi van sehol?"
+    ],
+    "everywhere": [
+        "Mi van mindenhol?"
+    ],
+    "inside": [
+        "Mi van belül?"
+    ],
+    "outside": [
+        "Mi van kívül?"
+    ]
+}

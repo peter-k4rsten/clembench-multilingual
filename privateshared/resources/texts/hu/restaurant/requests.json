@@ -1,0 +1,37 @@
+{
+    "appetizer": [
+        "Mit szeretnél előételként?",
+        "Szeretnél előételt rendelni?",
+        "Kérsz előételt?",
+        "Hozhatok valamilyen előételt?",
+        "Kiválasztottad már az előételt?"
+    ],
+    "drink": [
+        "Mit szeretnél inni?",
+        "Mit iszol ma?",
+        "Már eldöntötted, mit szeretnél inni?",
+        "Kérsz valamilyen italt?",
+        "Hozhatok inni valamit?"
+    ],
+    "main-dish": [
+        "Mit szeretnél enni?",
+        "Mi a választásod főételként?",
+        "Mit preferálsz főételnek?",
+        "Már eldöntötted, mit szeretnél főfogásként?",
+        "Mit hozhatok neked főételként?"
+    ],
+    "dessert": [
+        "Szeretnél desszertet?",
+        "Kérsz desszertet?",
+        "Szeretnél desszertet rendelni?",
+        "Kérsz valami édeset az étkezés után?",
+        "Mi a desszertre vonatkozó preferenciád?"
+    ],
+    "salad": [
+        "Szeretnél salátát?",
+        "Milyen salátát eszel ma?",
+        "Salátát?",
+        "Melyik salátát hozhatom?",
+        "Szeretnél salátát is?"
+    ]
+}

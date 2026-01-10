@@ -1,9 +1,16 @@
 {
-    "suffixes": [
+    "suffixes_en": [
         "",
         "Please answer this question carefully.",
         "Please follow my instructions.",
         "Please be specific now.",
         "Please think about it carefully."
+    ],
+    "suffixes_hu": [
+        "",
+        "Kérlek, válaszolj erre a kérdésre körültekintően.",
+        "Kérlek, kövesd az utasításaimat.",
+        "Kérlek, most légy konkrét.",
+        "Kérlek, gondold át alaposan."
     ]
 }

@@ -1,0 +1,37 @@
+{
+    "appetizer": [
+        "Elmondtad már a pincérnek, hogy milyen előételt szeretnél?",
+        "Tudja már a pincér, hogy mi az előételre vonatkozó preferenciád?",
+        "Megkérdezte már a pincér, hogy milyen előételt választasz?",
+        "Tájékoztattad a pincért arról, hogy milyen előételt szeretnél?",
+        "Tisztában van a pincér azzal, hogy mit választottál előételnek?"
+    ],
+    "drink": [
+        "Tudja a pincér, hogy mit szeretnél inni?",
+        "Elmondtad a pincérnek, hogy milyen italt szeretnél?",
+        "Szerinted a pincér tisztában van azzal, hogy mit fogsz inni?",
+        "A pincér értesült az italválasztásodról?",
+        "Ha megkérdezném a pincért, hogy mit szeretnél inni, tudná a választ?"
+    ],
+    "main-dish": [
+        "Tudja a pincér, hogy mi a főételre vonatkozó választásod?",
+        "Tájékoztattad a pincért arról, hogy mit szeretnél főételként?",
+        "Szerinted a pincér tudja, mit hozzon ki neked a főfogásként?",
+        "Tisztában van a pincér a főételválasztásoddal?",
+        "Megrendelted már a főételt?"
+    ],
+    "dessert": [
+        "Rendeltél már desszertet?",
+        "Tudja a pincér, hogy milyen desszertet szeretnél?",
+        "Ha megkérdezném a pincért, hogy milyen desszertet szeretnél, tudná a választ?",
+        "Tájékoztattad a pincért a desszertre vonatkozó preferenciádról?",
+        "Megkérdezte már a pincér, hogy milyen desszertet választasz?"
+    ],
+    "salad": [
+        "Tudja a pincér, hogy milyen salátát szeretnél?",
+        "Tisztában van a pincér a salátára vonatkozó preferenciáddal?",
+        "Tudhatja már a pincér, hogy milyen salátát rendelsz?",
+        "Megrendelted már a salátát?",
+        "Értesült a a pincér a salátaválasztásodról?"
+    ]
+}

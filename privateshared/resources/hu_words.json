@@ -1,0 +1,18 @@
+{
+    "ANSWER": "VÁLASZ: ",
+    "ASIDE": "MEGJEGYZÉS: ",
+    "ME": "ÉN: ",
+    "PROBE": "ÉN: {} Válaszolj erre a kérdésre igennel vagy nemmel, majd állj meg.",
+    "CODA": "{} Csak erre a kérdésre válaszolj egy rövid mondatban, majd állj meg.",
+    "DUMMY_PROMPT": "Mi a következő kérés?",
+    "YES": "igen",
+    "NO": "nem",
+    "OK": "Rendben.",
+    "tags": {
+        "travel-booking": "UTAZÁSI-ÜGYNÖK",
+        "job-interview": "TOBORZÓ",
+        "restaurant": "PINCÉR",
+        "things-places": "KÉRDEZŐ",
+        "letter-number": "KÉRDEZŐ"
+    }
+}

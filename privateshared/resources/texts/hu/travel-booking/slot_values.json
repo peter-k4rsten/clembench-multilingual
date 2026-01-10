@@ -1,0 +1,54 @@
+{
+    "from": [
+        "Berlin",
+        "Párizs",
+        "Koppenhága",
+        "Hamburg",
+        "London",
+        "Róma",
+        "Frankfurt",
+        "Prága",
+        "Köln",
+        "Stockholm"
+    ],
+    "to": [
+        "Lisszabon",
+        "Madrid",
+        "Moszkva",
+        "Drezda",
+        "Stuttgart",
+        "Bécs",
+        "Athén",
+        "Lyon",
+        "Amszterdam",
+        "Brüsszel"
+    ],
+    "by": [
+        "Repülő",
+        "Vonat",
+        "Bérelt autó",
+        "Taxi",
+        "Hajó",
+        "Éjszakai busz"
+    ],
+    "class": [
+        "Első osztály",
+        "Business osztály",
+        "Economy osztály",
+        "A legolcsóbb",
+        "A legkényelmesebb"
+    ],
+    "when": [
+        "Április 10-én",
+        "A következő hónap első hetében",
+        "Jövő vasárnap",
+        "Két hét múlva",
+        "Március 3-án",
+        "Bármikor a jövő héten",
+        "Májusban",
+        "Június harmadik hetében",
+        "Augusztus 15-én",
+        "A jövő hét végén",
+        "Tíz nap múlva"
+    ]
+}

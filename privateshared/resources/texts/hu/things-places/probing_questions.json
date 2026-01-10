@@ -1,0 +1,47 @@
+{
+    "left": [
+        "Tudja a kérdező, hogy mi van tőled balra?"
+    ],
+    "right": [
+        "Tudja a kérdező, hogy mi van tőled jobbra?"
+    ],
+    "top": [
+        "Tudja a kérdező, hogy mi van felül?"
+    ],
+    "bottom": [
+        "Tudja a kérdező, hogy mi van alul?"
+    ],
+    "center": [
+        "Tudja a kérdező, hogy mi van középen?"
+    ],
+    "northwest": [
+        "Tudja a kérdező, hogy mi van északnyugaton?"
+    ],
+    "northeast": [
+        "Tudja a kérdező, hogy mi van északkeleten?"
+    ],
+    "southwest": [
+        "Tudja a kérdező, hogy mi van délnyugaton?"
+    ],
+    "southeast": [
+        "Tudja a kérdező, hogy mi van délkeleten?"
+    ],
+    "here": [
+        "Tudja a kérdező, hogy mi van itt?"
+    ],
+    "there": [
+        "Tudja a kérdező, hogy mi van ott?"
+    ],
+    "nowhere": [
+        "Tudja a kérdező, hogy mi van sehol?"
+    ],
+    "everywhere": [
+        "Tudja a kérdező, hogy mi van mindenhol?"
+    ],
+    "inside": [
+        "Tudja a kérdező, hogy mi van belül?"
+    ],
+    "outside": [
+        "Tudja a kérdező, hogy mi van kívül?"
+    ]
+}
