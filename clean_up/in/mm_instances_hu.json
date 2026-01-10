@@ -1,0 +1,1942 @@
+{
+  "experiments": [
+    {
+      "name": "0_easy_3obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 362094,
+              "name": "coin",
+              "url": "https://cdn-icons-png.freepik.com/128/362/362094.png",
+              "id": "A",
+              "coord": [
+                416,
+                326
+              ]
+            },
+            {
+              "freepik_id": 1456509,
+              "name": "key",
+              "url": "https://cdn-icons-png.freepik.com/128/1456/1456509.png",
+              "id": "B",
+              "coord": [
+                286,
+                90
+              ]
+            },
+            {
+              "freepik_id": 2520094,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2520/2520094.png",
+              "id": "C",
+              "coord": [
+                903,
+                152
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 2520094,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2520/2520094.png",
+              "id": "A",
+              "coord": [
+                642,
+                153
+              ]
+            },
+            {
+              "freepik_id": 362094,
+              "name": "coin",
+              "url": "https://cdn-icons-png.freepik.com/128/362/362094.png",
+              "id": "B",
+              "coord": [
+                232,
+                428
+              ]
+            },
+            {
+              "freepik_id": 1456509,
+              "name": "key",
+              "url": "https://cdn-icons-png.freepik.com/128/1456/1456509.png",
+              "id": "C",
+              "coord": [
+                82,
+                467
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 6384974,
+              "name": "smartphone",
+              "url": "https://cdn-icons-png.freepik.com/128/6384/6384974.png",
+              "id": "A",
+              "coord": [
+                592,
+                160
+              ]
+            },
+            {
+              "freepik_id": 18464638,
+              "name": "umbrella",
+              "url": "https://cdn-icons-png.freepik.com/128/18464/18464638.png",
+              "id": "B",
+              "coord": [
+                190,
+                499
+              ]
+            },
+            {
+              "freepik_id": 7839075,
+              "name": "wallet",
+              "url": "https://cdn-icons-png.freepik.com/128/7839/7839075.png",
+              "id": "C",
+              "coord": [
+                222,
+                307
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 6384974,
+              "name": "smartphone",
+              "url": "https://cdn-icons-png.freepik.com/128/6384/6384974.png",
+              "id": "A",
+              "coord": [
+                619,
+                242
+              ]
+            },
+            {
+              "freepik_id": 7839075,
+              "name": "wallet",
+              "url": "https://cdn-icons-png.freepik.com/128/7839/7839075.png",
+              "id": "B",
+              "coord": [
+                167,
+                290
+              ]
+            },
+            {
+              "freepik_id": 18464638,
+              "name": "umbrella",
+              "url": "https://cdn-icons-png.freepik.com/128/18464/18464638.png",
+              "id": "C",
+              "coord": [
+                406,
+                110
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 3865522,
+              "name": "shopping bag",
+              "url": "https://cdn-icons-png.freepik.com/128/3865/3865522.png",
+              "id": "A",
+              "coord": [
+                695,
+                370
+              ]
+            },
+            {
+              "freepik_id": 10263734,
+              "name": "lock",
+              "url": "https://cdn-icons-png.freepik.com/128/10263/10263734.png",
+              "id": "B",
+              "coord": [
+                390,
+                407
+              ]
+            },
+            {
+              "freepik_id": 7839075,
+              "name": "wallet",
+              "url": "https://cdn-icons-png.freepik.com/128/7839/7839075.png",
+              "id": "C",
+              "coord": [
+                119,
+                164
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 7839075,
+              "name": "wallet",
+              "url": "https://cdn-icons-png.freepik.com/128/7839/7839075.png",
+              "id": "A",
+              "coord": [
+                411,
+                138
+              ]
+            },
+            {
+              "freepik_id": 10263734,
+              "name": "lock",
+              "url": "https://cdn-icons-png.freepik.com/128/10263/10263734.png",
+              "id": "B",
+              "coord": [
+                741,
+                314
+              ]
+            },
+            {
+              "freepik_id": 3865522,
+              "name": "shopping bag",
+              "url": "https://cdn-icons-png.freepik.com/128/3865/3865522.png",
+              "id": "C",
+              "coord": [
+                560,
+                329
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    },
+    {
+      "name": "0_easy_6obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 889906,
+              "name": "mirror",
+              "url": "https://cdn-icons-png.freepik.com/128/889/889906.png",
+              "id": "A",
+              "coord": [
+                747,
+                219
+              ]
+            },
+            {
+              "freepik_id": 2987996,
+              "name": "light bulb",
+              "url": "https://cdn-icons-png.freepik.com/128/2987/2987996.png",
+              "id": "B",
+              "coord": [
+                124,
+                185
+              ]
+            },
+            {
+              "freepik_id": 1775140,
+              "name": "pot",
+              "url": "https://cdn-icons-png.freepik.com/128/1775/1775140.png",
+              "id": "C",
+              "coord": [
+                510,
+                270
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 1775140,
+              "name": "pot",
+              "url": "https://cdn-icons-png.freepik.com/128/1775/1775140.png",
+              "id": "A",
+              "coord": [
+                257,
+                203
+              ]
+            },
+            {
+              "freepik_id": 2987996,
+              "name": "light bulb",
+              "url": "https://cdn-icons-png.freepik.com/128/2987/2987996.png",
+              "id": "B",
+              "coord": [
+                447,
+                156
+              ]
+            },
+            {
+              "freepik_id": 889906,
+              "name": "mirror",
+              "url": "https://cdn-icons-png.freepik.com/128/889/889906.png",
+              "id": "C",
+              "coord": [
+                869,
+                84
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 549178,
+              "name": "laptop",
+              "url": "https://cdn-icons-png.freepik.com/128/549/549178.png",
+              "id": "A",
+              "coord": [
+                210,
+                264
+              ]
+            },
+            {
+              "freepik_id": 14244736,
+              "name": "speaker",
+              "url": "https://cdn-icons-png.freepik.com/128/14244/14244736.png",
+              "id": "B",
+              "coord": [
+                898,
+                437
+              ]
+            },
+            {
+              "freepik_id": 129498,
+              "name": "light bulb",
+              "url": "https://cdn-icons-png.freepik.com/128/129/129498.png",
+              "id": "C",
+              "coord": [
+                401,
+                78
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 14244736,
+              "name": "speaker",
+              "url": "https://cdn-icons-png.freepik.com/128/14244/14244736.png",
+              "id": "A",
+              "coord": [
+                527,
+                93
+              ]
+            },
+            {
+              "freepik_id": 129498,
+              "name": "light bulb",
+              "url": "https://cdn-icons-png.freepik.com/128/129/129498.png",
+              "id": "B",
+              "coord": [
+                578,
+                400
+              ]
+            },
+            {
+              "freepik_id": 549178,
+              "name": "laptop",
+              "url": "https://cdn-icons-png.freepik.com/128/549/549178.png",
+              "id": "C",
+              "coord": [
+                835,
+                336
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 8207867,
+              "name": "bookmark",
+              "url": "https://cdn-icons-png.freepik.com/128/8207/8207867.png",
+              "id": "A",
+              "coord": [
+                770,
+                423
+              ]
+            },
+            {
+              "freepik_id": 226828,
+              "name": "lock",
+              "url": "https://cdn-icons-png.freepik.com/128/226/226828.png",
+              "id": "B",
+              "coord": [
+                267,
+                145
+              ]
+            },
+            {
+              "freepik_id": 1966591,
+              "name": "game controller",
+              "url": "https://cdn-icons-png.freepik.com/128/1966/1966591.png",
+              "id": "C",
+              "coord": [
+                585,
+                210
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 1966591,
+              "name": "game controller",
+              "url": "https://cdn-icons-png.freepik.com/128/1966/1966591.png",
+              "id": "A",
+              "coord": [
+                880,
+                252
+              ]
+            },
+            {
+              "freepik_id": 8207867,
+              "name": "bookmark",
+              "url": "https://cdn-icons-png.freepik.com/128/8207/8207867.png",
+              "id": "B",
+              "coord": [
+                421,
+                239
+              ]
+            },
+            {
+              "freepik_id": 226828,
+              "name": "lock",
+              "url": "https://cdn-icons-png.freepik.com/128/226/226828.png",
+              "id": "C",
+              "coord": [
+                167,
+                215
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    },
+    {
+      "name": "1_medium_3obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 2831256,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/2831/2831256.png",
+              "id": "A",
+              "coord": [
+                278,
+                305
+              ]
+            },
+            {
+              "freepik_id": 501379,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/501/501379.png",
+              "id": "B",
+              "coord": [
+                728,
+                112
+              ]
+            },
+            {
+              "freepik_id": 5060808,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/5060/5060808.png",
+              "id": "C",
+              "coord": [
+                890,
+                320
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 5060808,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/5060/5060808.png",
+              "id": "A",
+              "coord": [
+                416,
+                247
+              ]
+            },
+            {
+              "freepik_id": 2831256,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/2831/2831256.png",
+              "id": "B",
+              "coord": [
+                606,
+                273
+              ]
+            },
+            {
+              "freepik_id": 501379,
+              "name": "soap",
+              "url": "https://cdn-icons-png.freepik.com/128/501/501379.png",
+              "id": "C",
+              "coord": [
+                617,
+                91
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 4315183,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/4315/4315183.png",
+              "id": "A",
+              "coord": [
+                672,
+                502
+              ]
+            },
+            {
+              "freepik_id": 2824587,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/2824/2824587.png",
+              "id": "B",
+              "coord": [
+                317,
+                161
+              ]
+            },
+            {
+              "freepik_id": 6162668,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/6162/6162668.png",
+              "id": "C",
+              "coord": [
+                364,
+                454
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 4315183,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/4315/4315183.png",
+              "id": "A",
+              "coord": [
+                902,
+                329
+              ]
+            },
+            {
+              "freepik_id": 6162668,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/6162/6162668.png",
+              "id": "B",
+              "coord": [
+                629,
+                433
+              ]
+            },
+            {
+              "freepik_id": 2824587,
+              "name": "keyboard",
+              "url": "https://cdn-icons-png.freepik.com/128/2824/2824587.png",
+              "id": "C",
+              "coord": [
+                441,
+                391
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 2560458,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2560/2560458.png",
+              "id": "A",
+              "coord": [
+                798,
+                491
+              ]
+            },
+            {
+              "freepik_id": 189126,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/189/189126.png",
+              "id": "B",
+              "coord": [
+                777,
+                145
+              ]
+            },
+            {
+              "freepik_id": 2000084,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2000/2000084.png",
+              "id": "C",
+              "coord": [
+                295,
+                415
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 189126,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/189/189126.png",
+              "id": "A",
+              "coord": [
+                383,
+                290
+              ]
+            },
+            {
+              "freepik_id": 2000084,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2000/2000084.png",
+              "id": "B",
+              "coord": [
+                595,
+                74
+              ]
+            },
+            {
+              "freepik_id": 2560458,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2560/2560458.png",
+              "id": "C",
+              "coord": [
+                97,
+                395
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    },
+    {
+      "name": "1_medium_6obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 2922277,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/2922/2922277.png",
+              "id": "A",
+              "coord": [
+                543,
+                384
+              ]
+            },
+            {
+              "freepik_id": 3158661,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/3158/3158661.png",
+              "id": "B",
+              "coord": [
+                372,
+                178
+              ]
+            },
+            {
+              "freepik_id": 650401,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/650/650401.png",
+              "id": "C",
+              "coord": [
+                858,
+                159
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 3158661,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/3158/3158661.png",
+              "id": "A",
+              "coord": [
+                117,
+                369
+              ]
+            },
+            {
+              "freepik_id": 650401,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/650/650401.png",
+              "id": "B",
+              "coord": [
+                564,
+                303
+              ]
+            },
+            {
+              "freepik_id": 2922277,
+              "name": "headphones",
+              "url": "https://cdn-icons-png.freepik.com/128/2922/2922277.png",
+              "id": "C",
+              "coord": [
+                332,
+                308
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 13398094,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/13398/13398094.png",
+              "id": "A",
+              "coord": [
+                766,
+                241
+              ]
+            },
+            {
+              "freepik_id": 11272638,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/11272/11272638.png",
+              "id": "B",
+              "coord": [
+                374,
+                290
+              ]
+            },
+            {
+              "freepik_id": 6363772,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/6363/6363772.png",
+              "id": "C",
+              "coord": [
+                211,
+                318
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 13398094,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/13398/13398094.png",
+              "id": "A",
+              "coord": [
+                511,
+                450
+              ]
+            },
+            {
+              "freepik_id": 11272638,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/11272/11272638.png",
+              "id": "B",
+              "coord": [
+                831,
+                436
+              ]
+            },
+            {
+              "freepik_id": 6363772,
+              "name": "cake",
+              "url": "https://cdn-icons-png.freepik.com/128/6363/6363772.png",
+              "id": "C",
+              "coord": [
+                694,
+                257
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 1676441,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/1676/1676441.png",
+              "id": "A",
+              "coord": [
+                756,
+                415
+              ]
+            },
+            {
+              "freepik_id": 17663790,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/17663/17663790.png",
+              "id": "B",
+              "coord": [
+                340,
+                230
+              ]
+            },
+            {
+              "freepik_id": 1676497,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/1676/1676497.png",
+              "id": "C",
+              "coord": [
+                162,
+                283
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 1676497,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/1676/1676497.png",
+              "id": "A",
+              "coord": [
+                736,
+                445
+              ]
+            },
+            {
+              "freepik_id": 17663790,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/17663/17663790.png",
+              "id": "B",
+              "coord": [
+                130,
+                206
+              ]
+            },
+            {
+              "freepik_id": 1676441,
+              "name": "bucket",
+              "url": "https://cdn-icons-png.freepik.com/128/1676/1676441.png",
+              "id": "C",
+              "coord": [
+                491,
+                255
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    },
+    {
+      "name": "2_hard_3obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 17515129,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/17515/17515129.png",
+              "id": "A",
+              "coord": [
+                117,
+                441
+              ]
+            },
+            {
+              "freepik_id": 1394093,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/1394/1394093.png",
+              "id": "B",
+              "coord": [
+                668,
+                353
+              ]
+            },
+            {
+              "freepik_id": 17784239,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/17784/17784239.png",
+              "id": "C",
+              "coord": [
+                463,
+                111
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 17515129,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/17515/17515129.png",
+              "id": "A",
+              "coord": [
+                897,
+                265
+              ]
+            },
+            {
+              "freepik_id": 1394093,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/1394/1394093.png",
+              "id": "B",
+              "coord": [
+                386,
+                94
+              ]
+            },
+            {
+              "freepik_id": 17784239,
+              "name": "bowl",
+              "url": "https://cdn-icons-png.freepik.com/128/17784/17784239.png",
+              "id": "C",
+              "coord": [
+                88,
+                341
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 14433576,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/14433/14433576.png",
+              "id": "A",
+              "coord": [
+                264,
+                328
+              ]
+            },
+            {
+              "freepik_id": 2106823,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2106/2106823.png",
+              "id": "B",
+              "coord": [
+                947,
+                244
+              ]
+            },
+            {
+              "freepik_id": 4731318,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/4731/4731318.png",
+              "id": "C",
+              "coord": [
+                525,
+                431
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 2106823,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/2106/2106823.png",
+              "id": "A",
+              "coord": [
+                131,
+                167
+              ]
+            },
+            {
+              "freepik_id": 4731318,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/4731/4731318.png",
+              "id": "B",
+              "coord": [
+                621,
+                245
+              ]
+            },
+            {
+              "freepik_id": 14433576,
+              "name": "chocolate",
+              "url": "https://cdn-icons-png.freepik.com/128/14433/14433576.png",
+              "id": "C",
+              "coord": [
+                530,
+                461
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 5,
+          "max_rounds": 12,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 5-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 12 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 5831932,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/5831/5831932.png",
+              "id": "A",
+              "coord": [
+                244,
+                177
+              ]
+            },
+            {
+              "freepik_id": 6417900,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/6417/6417900.png",
+              "id": "B",
+              "coord": [
+                260,
+                328
+              ]
+            },
+            {
+              "freepik_id": 9321253,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/9321/9321253.png",
+              "id": "C",
+              "coord": [
+                618,
+                414
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 6417900,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/6417/6417900.png",
+              "id": "A",
+              "coord": [
+                448,
+                369
+              ]
+            },
+            {
+              "freepik_id": 9321253,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/9321/9321253.png",
+              "id": "B",
+              "coord": [
+                809,
+                221
+              ]
+            },
+            {
+              "freepik_id": 5831932,
+              "name": "calculator",
+              "url": "https://cdn-icons-png.freepik.com/128/5831/5831932.png",
+              "id": "C",
+              "coord": [
+                336,
+                163
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 5 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 12 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    },
+    {
+      "name": "2_hard_6obj_hu",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 1084868,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/1084/1084868.png",
+              "id": "A",
+              "coord": [
+                515,
+                138
+              ]
+            },
+            {
+              "freepik_id": 14536657,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/14536/14536657.png",
+              "id": "B",
+              "coord": [
+                885,
+                194
+              ]
+            },
+            {
+              "freepik_id": 12693434,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/12693/12693434.png",
+              "id": "C",
+              "coord": [
+                200,
+                385
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 1084868,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/1084/1084868.png",
+              "id": "A",
+              "coord": [
+                423,
+                275
+              ]
+            },
+            {
+              "freepik_id": 12693434,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/12693/12693434.png",
+              "id": "B",
+              "coord": [
+                189,
+                239
+              ]
+            },
+            {
+              "freepik_id": 14536657,
+              "name": "helmet",
+              "url": "https://cdn-icons-png.freepik.com/128/14536/14536657.png",
+              "id": "C",
+              "coord": [
+                950,
+                262
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 1,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 3370765,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/3370/3370765.png",
+              "id": "A",
+              "coord": [
+                766,
+                94
+              ]
+            },
+            {
+              "freepik_id": 1816267,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/1816/1816267.png",
+              "id": "B",
+              "coord": [
+                806,
+                353
+              ]
+            },
+            {
+              "freepik_id": 7703445,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/7703/7703445.png",
+              "id": "C",
+              "coord": [
+                619,
+                305
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 1816267,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/1816/1816267.png",
+              "id": "A",
+              "coord": [
+                327,
+                352
+              ]
+            },
+            {
+              "freepik_id": 3370765,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/3370/3370765.png",
+              "id": "B",
+              "coord": [
+                774,
+                180
+              ]
+            },
+            {
+              "freepik_id": 7703445,
+              "name": "ice cream",
+              "url": "https://cdn-icons-png.freepik.com/128/7703/7703445.png",
+              "id": "C",
+              "coord": [
+                796,
+                442
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        },
+        {
+          "game_id": 2,
+          "modality": "image",
+          "language": "hu",
+          "max_penalties": 8,
+          "max_rounds": 24,
+          "background": "/Users/bukovszkyeszter/PycharmProjects/clembench_project/clean_up/resources/backgrounds/kitchen.png",
+          "intermittent_prompts": {
+            "invalid_response": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `MONDD: <ÜZENET>` vagy `MOZGASD: <OBJECT>, (<X>, <Y>)` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+            "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+            "new_turn_move": "A másik játékos mozgatott egy ikont a saját képén.",
+            "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+            "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett 8-ból/ből.\n",
+            "penalty_reprompt": "Kérlek, próbáld újra!",
+            "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum 24 körből.\n"
+          },
+          "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+          "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+          "parse_errors": {
+            "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+            "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+            "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+            "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+            "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+            "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+            "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
+          },
+          "move_messages": {
+            "successful": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+            "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+            "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+            "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
+          },
+          "terminate_question": "kész?",
+          "terminate_answer": "kész!",
+          "restricted_patterns": [
+            "[0-9]+"
+          ],
+          "objects_1": [
+            {
+              "freepik_id": 598062,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/598/598062.png",
+              "id": "A",
+              "coord": [
+                851,
+                259
+              ]
+            },
+            {
+              "freepik_id": 7561093,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/7561/7561093.png",
+              "id": "B",
+              "coord": [
+                176,
+                122
+              ]
+            },
+            {
+              "freepik_id": 2004206,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/2004/2004206.png",
+              "id": "C",
+              "coord": [
+                428,
+                480
+              ]
+            }
+          ],
+          "objects_2": [
+            {
+              "freepik_id": 598062,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/598/598062.png",
+              "id": "A",
+              "coord": [
+                865,
+                464
+              ]
+            },
+            {
+              "freepik_id": 2004206,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/2004/2004206.png",
+              "id": "B",
+              "coord": [
+                571,
+                351
+              ]
+            },
+            {
+              "freepik_id": 7561093,
+              "name": "notebook",
+              "url": "https://cdn-icons-png.freepik.com/128/7561/7561093.png",
+              "id": "C",
+              "coord": [
+                87,
+                154
+              ]
+            }
+          ],
+          "p1_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+          "p2_initial_prompt": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: 'A', 'B', 'C'\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n\nA másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n\n**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n\n**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:\n1. `MONDD: <ÜZENET>`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.\n2. `MOZGASD: <OBJECT>, (<X>, <Y>)`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova.\n* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.\n* Ha mindketten több mint 8 büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `MONDD: <ÜZENET>` parancs!\n\n\n**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n\n**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `MONDD: kész?` parancs elküldésével. Ha a másik játékos kér erre, és te `MONDD: kész!`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az 24 körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n\n**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?\n\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
+        }
+      ]
+    }
+  ]
+}
