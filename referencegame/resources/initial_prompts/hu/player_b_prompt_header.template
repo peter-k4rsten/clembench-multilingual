@@ -1,0 +1,21 @@
+Három rácsot kapsz, mindegyik 5×5-ös méretű.
+A rácsok üres cellái "▢" jellel vannak jelölve, a kitöltött cellák pedig "X" jellel.
+Egy leírást is kapsz, amely az egyik rácsot írja le.
+A feladatod az, hogy kiválaszd azt a rácsot, amelyik megfelel a kapott leírásnak.
+A válaszodban csak azt add meg szövegesen, hogy az első, a második vagy a harmadik rácsról van-e szó.
+
+Első:
+
+FIRST_GRID
+
+Második:
+
+SECOND_GRID
+
+Harmadik:
+
+THIRD_GRID
+
+TARGET_EXPRESSION
+Kérdés: Melyik rácsra vonatkozik a leírás?
+A válaszodat a „Válasz: ” címkével kezdd, majd add meg a választ. Más szöveget ne adj meg.

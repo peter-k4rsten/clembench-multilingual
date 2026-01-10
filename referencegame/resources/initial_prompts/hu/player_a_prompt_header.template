@@ -1,0 +1,28 @@
+Három rácsot kapsz, mindegyik 5×5-ös méretű.
+A rácsok üres cellái "▢" jellel, a kitöltött cellái pedig "X" jellel vannak jelölve.
+A feladatod, hogy olyan leírást adj, amely egyértelműen azonosítja a célnak megadott rácsot, és megkülönbözteti a két zavaró rácstól.
+Az első rács a célrács, a következő kettő pedig a zavaró rácsok.
+
+Célrács:
+
+TARGET_GRID
+
+Zavaró rács 1:
+
+SECOND_GRID
+
+Zavaró rács 2:
+
+THIRD_GRID
+
+Instrukció: Írd le a célrácsot.
+A válaszodat a „Kifejezés: ” címkével kezdd. Más szöveget ne adj meg.
+
+
+
+
+
+
+
+
+

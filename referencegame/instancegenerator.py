@@ -202,7 +202,8 @@ class ReferenceGameInstanceGenerator(GameInstanceGenerator):
             regex_string = f'^(?P<tag>{tag}\s*)(?P<content>(?P<response>{response})\n*(?P<remainder>(.|\n)*))'
 
         elif player == "p2":
-            tag = MULTILINGUAL_PATTERNS[self.lang]["p2_tag"]
+            raw_tag = MULTILINGUAL_PATTERNS[self.lang]["p2_tag"]  # e.g. "Válasz:"
+            tag = raw_tag.replace(":", r"\s*:\s*")
             # collect answer options for the given language
             # also allow models to output numbers,
             # as we can't do prompt engineering in all languages
