@@ -165,9 +165,9 @@ class ReferenceGameInstanceGenerator(GameInstanceGenerator):
                         third_grid = target_grid
                         target_grid_name = [targets[2], "3"] # corresponds to "third"
 
-                    game_instance["player_2_prompt_header"] = player_b_prompt_header.replace('FIRST_GRID', first_grid)\
-                                                                                    .replace('SECOND_GRID', second_grid)\
-                                                                                    .replace('THIRD_GRID', third_grid)
+                    game_instance["player_2_prompt_header"] = player_b_prompt_header.replace('$FIRST_GRID$', first_grid)\
+                                                                                    .replace('$SECOND_GRID$', second_grid)\
+                                                                                    .replace('$THIRD_GRID$', third_grid)
                     game_instance['player_2_first_grid'] = first_grid
                     game_instance['player_2_second_grid'] = second_grid
                     game_instance['player_2_third_grid'] = third_grid

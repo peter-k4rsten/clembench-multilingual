@@ -6,16 +6,16 @@ Generate only the number (in text) of the grid that matches the given expression
 
 First:
 
-FIRST_GRID
+$FIRST_GRID$
 
 Second:
 
-SECOND_GRID
+$SECOND_GRID$
 
 Third:
 
-THIRD_GRID
+$THIRD_GRID$
 
-TARGET_EXPRESSION
+$TARGET_EXPRESSION$
 Question: Which grid does the expression refer to?
 Start with the tag "Answer: ", followed by your selection. Omit any other text.

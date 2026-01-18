@@ -5,15 +5,15 @@ The first grid is the target grid, and the following two grids are the distracto
 
 Target grid:
 
-TARGET_GRID
+$TARGET_GRID$
 
 Distractor grid 1:
 
-SECOND_GRID
+$SECOND_GRID$
 
 Distractor grid 2:
 
-THIRD_GRID
+$THIRD_GRID$
 
 Instruction: Describe the target grid.
 Generate the referring expression starting with the tag "Expression: " for the given target grid. Omit any other text.

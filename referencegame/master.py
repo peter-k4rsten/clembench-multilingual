@@ -137,7 +137,7 @@ class ReferenceGameMaster(DialogueGameMaster):
         if player == self.instruction_giver:
             self.log_to_self('parse', parsed_response)
             # Game only has one round, so we can use the initial prompt header here
-            p2_prompt = self.game.player_2_prompt_header.replace('TARGET_EXPRESSION', parsed_response)
+            p2_prompt = self.game.player_2_prompt_header.replace('$TARGET_EXPRESSION$', parsed_response)
             self.set_context_for(self.instruction_follower, p2_prompt)
         else:
             if parsed_response in self.game.target_grid_name:
