@@ -1,0 +1,35 @@
+{
+    "bachelor": [
+        "Mi volt az alapképzésed?",
+        "Milyen területen szerezted a diplomádat?",
+        "Mit tanultál az alapképzés során?",
+        "Mi az alapképzéses háttered?",
+        "Melyik alapképzésen vettél részt?"
+    ],
+    "industry-experience": [
+        "Hány év iparági tapasztalatod van?",
+        "Mennyi ideig dolgoztál az iparágban?",
+        "Mióta dolgozol az iparágban?",
+        "Hány évet dolgoztál iparági pozíciókban?",
+        "Mióta dolgozol a szakterületeden az iparágban?"
+    ],
+    "highest-education": [
+        "Mi a legmagasabb akadémiai végzettséged?",
+        "Milyen szintű végzettséget értél el?",
+        "Mi a legutóbbi megszerzett végzettséged?"
+    ],
+    "other-skills": [
+        "Van bármilyen egyéb készséged?",
+        "Milyen egyéb készségeid vannak?",
+        "Rendelkezel további készségekkel?",
+        "Melyek az egyéb releváns készségeid?",
+        "Kérlek, mondd el, milyen egyéb készségeid vannak."
+    ],
+    "availability": [
+        "Mikor tudsz kezdeni?",
+        "Mikortól vagy elérhető?",
+        "Kérlek, mondd el, mikor tudnál nálunk munkába állni.",
+        "Milyen a rendelkezésre állásod?",
+        "Mikor tudnál itt dolgozni kezdeni?"
+    ]
+}

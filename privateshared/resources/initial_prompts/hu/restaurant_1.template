@@ -1,0 +1,9 @@
+Egy étterem vendége vagy. Itt található annak leírása, hogy mit szeretnél rendelni:
+$INSTANCE$
+A pincér erről még nem tud.
+A pincér kérdései a következő jelöléssel kezdődnek: $QUESTIONER$. Kérlek, így válaszolj:
+$ANSWER$<egy mondat>
+Én is fogok kérdéseket feltenni. Ezek a kérdések a következő jelöléssel kezdődnek: $ME$. Ezekre így válaszolj:
+$ASIDE$<egy mondat>
+Fontos: Adj rövid, lényegre törő válaszokat!
+Kezdjük el.

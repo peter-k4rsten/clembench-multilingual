@@ -105,17 +105,21 @@ class PrivateShared(DialogueGameMaster):
         self.aborted: bool = False
         self.played_probing_rounds: int = 0
 
+        lang = game_instance['lang']  # add lang
+        exp_name = self.experiment['name'].rsplit('_', 1)[0]
+
         # set up game instance
         self.game_instance = game_instance
-        self.probing_questions = self.load_json(PROBES_PATH.format(self.experiment['name']))
-        self.retries = self.load_json(RETRIES_PATH)['suffixes']
+        self.probing_questions = self.load_json(PROBES_PATH.format(lang, exp_name))
+        reprompts = self.load_json(RETRIES_PATH)
+        self.retries = reprompts[f'suffixes_{lang}']
 
         self.questioner_tag = f"{game_instance['tag']}: "
         self.probing = game_instance['probes']
         self.probe_gt = {slot: i for i, slot in enumerate(game_instance['request_order'])}
         self.game = PrivateSharedGame(game_instance['request_order'], game_instance['slots'])
         self.n_probe_turns = self.game.max_turns + 1  # one probing before the game starts and one after each request
-        request_strings = self.load_json(REQUESTS_PATH.format(self.experiment['name']))
+        request_strings = self.load_json(REQUESTS_PATH.format(lang, exp_name))
         self.words = Words(self.load_json(WORDS_PATH.format(game_instance['lang'])))  # load language specific words
         self.initial_prompt = game_instance['initial_prompt']
         self.all_probes: List[List[Dict]] = []

@@ -1,0 +1,62 @@
+{
+    "appetizer": [
+        "Bruschetta",
+        "Mogyoró",
+        "Antipasti",
+        "Guacamole",
+        "Sült krumpli",
+        "Sajt",
+        "Kenyér",
+        "Olívabogyó",
+        "Gomba",
+        "Humusz"
+    ],
+    "drink": [
+        "Bor",
+        "Sör",
+        "Gyümölcslé",
+        "Szénsavas üdítő",
+        "Víz",
+        "Koktél",
+        "Limonádé",
+        "Kávé",
+        "Tea",
+        "Pezsgő"
+    ],
+    "main-dish": [
+        "Lasagne",
+        "Pizza",
+        "Sushi",
+        "Polenta",
+        "Falafel",
+        "Biryani",
+        "Burrito",
+        "Curry",
+        "Leves",
+        "Tészta"
+    ],
+    "dessert": [
+        "Piskótatorta",
+        "Tiramisu",
+        "Fagylalt",
+        "Keksz",
+        "Gofri",
+        "Gyümölcs",
+        "Fudge",
+        "Pite",
+        "Brownie",
+        "Muffin"
+    ],
+    "salad": [
+        "Caesar-saláta",
+        "Paradicsomsaláta",
+        "Görög saláta",
+        "Avokádósaláta",
+        "Tofus saláta",
+        "Rukkola",
+        "Fejes saláta",
+        "Uborkasaláta",
+        "Céklasaláta",
+        "Spenót"
+    ]
+}

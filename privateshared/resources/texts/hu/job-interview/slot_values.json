@@ -1,0 +1,57 @@
+{
+    "bachelor": [
+        "Matematika",
+        "Kémia",
+        "Informatika",
+        "Pszichológia",
+        "Jog",
+        "Mérnöki tudományok",
+        "Közgazdaságtan",
+        "Orvostudomány",
+        "Irodalom",
+        "Zene"
+    ],
+    "industry-experience": [
+        "Nincs",
+        "Egy év",
+        "Két év",
+        "Három év",
+        "Négy év",
+        "Öt év",
+        "Tíz év",
+        "Tizenöt év",
+        "Húsz év",
+        "Másfél év"
+    ],
+    "highest-education": [
+        "Alapképzés",
+        "Mesterképzés",
+        "PhD",
+        "Posztdoktori",
+        "Professzor"
+    ],
+    "other-skills": [
+        "Francia",
+        "Python",
+        "Kommunikáció",
+        "Java",
+        "Spanyol",
+        "Vezetői készségek",
+        "Tánc",
+        "Festés",
+        "Főzés",
+        "Kutatás"
+    ],
+    "availability": [
+        "December 10-től",
+        "A következő hónap első hetében",
+        "Három hónap múlva",
+        "Két hét múlva",
+        "Július 15-től",
+        "Bármikor a következő hónapban",
+        "Szeptembertől",
+        "Január utolsó hetében",
+        "A lehető leghamarabb",
+        "Holnap"
+    ]
+}

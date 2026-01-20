@@ -1,0 +1,39 @@
+{
+    "bachelor": [
+        "Tudja az interjúztató, hogy milyen alapképzéses diplomád van?",
+        "Tájékoztattad a toborzót az alapképzésedről?",
+        "Ha megkérdezném az interjúztatót, hogy milyen területen tanultál alapképzésen, tudná a választ?",
+        "A toborzó kapott információt az alapképzésed szakterületéről?",
+        "Tudja az interjúztató, hogy mit tanultál az alapképzés során?"
+    ],
+    "industry-experience": [
+        "Tudja a toborzó, hogy hány év iparági tapasztalatod van?",
+        "Tájékoztattad az interjúztatót az iparági tapasztalatod éveiről?",
+        "Az interjúztató értesült arról, mennyi ideig szereztél iparági tapasztalatot?",
+        "A toborzó már tudja, hogy mennyi ideig dolgoztál az iparágban?",
+        "Ha megkérdezném a toborzót, hogy mióta dolgozol az iparágban, tudná a választ?"
+    ],
+    "highest-education": [
+        "Tájékoztattad a toborzót a legmagasabb végzettségedről?",
+        "Tudja az interjúztató, hogy milyen szintű a végzettséged?",
+        "Szerinted a toborzó tisztában van a legutóbbi tanulmányi szinteddel?",
+        "Az interjúztató tud a legmagasabb iskolai végzettségedről?",
+        "Tájékoztattad a toborzót a legutóbbi megszerzett diplomádról?"
+    ],
+    "other-skills": [
+        "Tájékoztattad az interjúztatót az egyéb készségeidről?",
+        "Tudja a toborzó, hogy milyen további készségeid vannak?",
+        "Szerinted a toborzó tudja, milyen egyéb készségekkel rendelkezel?",
+        "A toborzó tisztában van az egyéb készségeiddel?",
+        "Elmondtad az interjúztatónak a további készségeidet?"
+    ],
+    "availability": [
+        "Tudja a toborzó, hogy mikor tudsz kezdeni?",
+        "Elmondtad az interjúztatónak, hogy mikor szeretnél kezdeni?",
+        "A toborzó kapott információt a rendelkezésre állásodról?",
+        "Az interjúztató tudja már, mikor lenne az általad preferált kezdési időpont?",
+        "Ha megkérdezném az interjúztatót, hogy mikor tudsz munkába állni, tudná a választ?",
+        "Tájékoztattad az interjúztatót az időpontjaidról?",
+        "Szerinted a toborzó tudja, mikor szeretnél kezdeni?"
+    ]
+}

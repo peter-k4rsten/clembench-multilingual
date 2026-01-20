@@ -1,0 +1,54 @@
+{
+    "from": [
+        "Tudja az utazási ügynök, honnan indul az utazásod?",
+        "Elmondtad az utazási ügynöknek, honnan indulsz?",
+        "Az utazási ügynök kapott információt az indulási helyedről?",
+        "Az utazási ügynök már tudja, mi az indulási helyed?",
+        "Ha megkérdezném az utazási ügynököt, honnan indulsz, tudná a választ?",
+        "Tisztában van az utazási ügynök az indulási helyeddel?",
+        "Tájékoztattad az utazási ügynököt az indulás helyéről?",
+        "Szerinted az utazási ügynök tudja, honnan indulsz?",
+        "Már említetted az utazásod indulási helyét az utazási ügynöknek?",
+        "Szerinted az utazási ügynök tisztában van az indulási helyeddel?"
+    ],
+    "to": [
+        "Tudja az utazási ügynök, hová szeretnél utazni?",
+        "Elmondtad az utazási ügynöknek, hová szeretnél menni?",
+        "Az utazási ügynök kapott információt az úti célodról?",
+        "Az utazási ügynök már tudja, mi az úti célod?",
+        "Ha megkérdezném az utazási ügynököt, hová szeretnél utazni, tudná a választ?",
+        "Tisztában van az utazási ügynök az úti céloddal?",
+        "Tájékoztattad az utazási ügynököt az úti célodról?",
+        "Szerinted az utazási ügynök tudja, hová szeretnél utazni?",
+        "Már említetted az utazásod úti célját az utazási ügynöknek?",
+        "Szerinted az utazási ügynök tisztában van azzal, hová utazol?"
+    ],
+    "by": [
+        "Tudja az utazási ügynök, hogyan szeretnél utazni?",
+        "Az utazási ügynök kapott információt az általad preferált közlekedési módról?",
+        "Az utazási ügynök már tudja, hogy repülővel vagy vonattal utazol-e?",
+        "Ha megkérdezném az utazási ügynököt, hogyan utazol, tudná a választ?",
+        "Tisztában van az utazási ügynök a közlekedési módoddal?",
+        "Szerinted az utazási ügynök tudja, hogyan szeretnél utazni?",
+        "Már említetted az utazásod közlekedési módját az utazási ügynöknek?",
+        "Szerinted az utazási ügynök tisztában van azzal, hogyan fogsz utazni?"
+    ],
+    "class": [
+        "Tájékoztattad az utazási ügynököt az osztálypreferenciádról?",
+        "Tudja az utazási ügynök, melyik osztályt részesíted előnyben?",
+        "Szerinted az utazási ügynök tudja, melyik osztályon történik majd az utazás?",
+        "Tisztában van az utazási ügynök azzal, melyik osztályt szeretnéd lefoglalni?"
+    ],
+    "when": [
+        "Tudja az utazási ügynök, mikor kezdődik az utazásod?",
+        "Elmondtad az utazási ügynöknek, mikor szeretnél utazni?",
+        "Az utazási ügynök kapott információt az utazásod időpontjairól?",
+        "Az utazási ügynök már tudja, melyek az általad preferált dátumok?",
+        "Ha megkérdezném az utazási ügynököt, mikor utazol, tudná a választ?",
+        "Tisztában van az utazási ügynök az utazásod dátumaival?",
+        "Tájékoztattad az utazási ügynököt az időpontjaidról?",
+        "Szerinted az utazási ügynök tudja, mikor szeretnél indulni?",
+        "Már említetted az utazásod dátumait az utazási ügynöknek?",
+        "Szerinted az utazási ügynök tisztában van azzal, mikor utazol?"
+    ]
+}

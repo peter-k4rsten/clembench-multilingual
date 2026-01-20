@@ -1,0 +1,8 @@
+Számok vannak betűkhöz rendelve, de a kérdező erről még nem tud. Íme a megfeleltetés:
+$INSTANCE$
+A kérdező kérdései a következő jelöléssel kezdődnek: $QUESTIONER$. Kérlek, így válaszolj:
+$ANSWER$<egy mondat>
+Én is fogok kérdéseket feltenni. Ezek a kérdések a következő jelöléssel kezdődnek: $ME$. Ezekre így válaszolj:
+$ASIDE$<egy mondat>
+Fontos: Adj rövid, lényegre törő válaszokat!
+Kezdjük el.

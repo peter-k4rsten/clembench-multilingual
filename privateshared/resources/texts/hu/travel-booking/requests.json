@@ -1,0 +1,37 @@
+{
+    "from": [
+        "Honnan szeretnél indulni?",
+        "Mi az utazásod kiindulópontja?",
+        "Honnan indulsz?",
+        "Hol kezdődik az utazásod?",
+        "Kérlek, add meg az indulás helyét."
+    ],
+    "to": [
+        "Hová szeretnél utazni?",
+        "Mi az úti célod?",
+        "Hová mész?",
+        "Mi az utazásod célállomása?",
+        "Kérlek, add meg az úti célt."
+    ],
+    "by": [
+        "Milyen közlekedési eszközt szeretnél használni?",
+        "Melyik közlekedési módot részesíted előnyben?",
+        "Hogyan szeretnél eljutni az úti célodhoz?",
+        "Kérlek, mondd el, milyen közlekedési módot szeretnél.",
+        "Szeretnél egy konkrét közlekedési módot?"
+    ],
+    "class": [
+        "Melyik osztályt részesíted előnyben?",
+        "Első osztályra, business osztályra vagy economy osztályra foglaljak?",
+        "Van osztálypreferenciád?",
+        "Kérlek, add meg, melyik osztályra foglaljak neked.",
+        "Milyen osztályt szeretnél?"
+    ],
+    "when": [
+        "Mikor indulsz?",
+        "Mikor szeretnéd megkezdeni az utazásodat?",
+        "Mikor kezdődik az utazásod?",
+        "Mikor lesz az utazás?",
+        "Mi az indulás dátuma?"
+    ]
+}
