@@ -1,0 +1,4 @@
+Egy együttműködésen alapuló találgatós játékban veszel részt.
+A cél annak kiderítése, hogy ez a rács és egy másik kép, amelyet csak én látok, ugyanaz-e.
+Kérlek, először írd le a te rácsodat. Ezután én megadom az én leírásomat, és kérdéseket tehetünk fel egymásnak a rácsokról, hogy kiderítsük, ugyanazok-e. $NUM_QUESTIONS$ Most kezdd a rövid rácsleírásodat "$FLAG$" jelzővel, majd add meg a leírást. Ne adj hozzá semmi mást. Ez a te rácsod:
+$GRID$

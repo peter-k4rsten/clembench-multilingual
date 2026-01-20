@@ -1,0 +1,10 @@
+{
+  "FLAGS": {
+    "description": "LEÍRÁS:",
+    "question": "KÉRDÉS:",
+    "answer": "VÁLASZ:",
+    "decision": "DÖNTÉS:"
+  },
+  "SOL_SAME": "azonos rács",
+  "SOL_DIFF": "eltérő rács"
+}

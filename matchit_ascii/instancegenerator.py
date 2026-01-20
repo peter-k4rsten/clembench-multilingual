@@ -21,19 +21,26 @@ INFO_NUM_QUESTIONS: bool = False
 # SEED: int = 42  # seed for old/v1.6 instances
 # SEED: int = 123 # v2.0
 
-# Flags that have to be at the beginning of each response; are also specified in the prompts
-FLAGS: Dict = {"description": "DESCRIPTION:", "question": "QUESTION:", "answer": "ANSWER:", "decision": "DECISION:"}
-SOL_SAME: str = "same grid"
-SOL_DIFF: str = "different grids"
-
 
 class MatchItAsciiInstanceGenerator(GameInstanceGenerator):
 
     def __init__(self):
         super().__init__(os.path.dirname(__file__))
+        self.lang = None
 
     def on_generate(self, seed: int, **kwargs):
         print("current path:", self.game_path)
+        self.lang = kwargs["lang"]
+
+        # Flags that have to be at the beginning of each response; are also specified in the prompts
+        # changed
+        with open(f'resources/prompts/{self.lang}/constants.json', encoding='utf-8') as f:
+            constants = json.load(f)
+
+        FLAGS = constants["FLAGS"]
+        SOL_SAME = constants["SOL_SAME"]
+        SOL_DIFF = constants["SOL_DIFF"]
+
         # df = pd.read_csv(PATH_PAIRS, index_col = 0)
         df = pd.read_csv(os.path.join(self.game_path, PATH_PAIRS), index_col=0)
         diffs = df[df.category == "different_grid"].sample(n=N, random_state=seed)
@@ -45,20 +52,20 @@ class MatchItAsciiInstanceGenerator(GameInstanceGenerator):
         with open(os.path.join(self.game_path, PATH_GRIDS)) as file:
             grid_dict = json.load(file)
 
-        initial_prompt = (self.load_template('resources/prompts/initial_prompt.template')
+        initial_prompt = (self.load_template(f'resources/prompts/{self.lang}/initial_prompt.template')
                           .replace("$FLAG$", FLAGS["description"]))
-        q_reprompt = (self.load_template('resources/prompts/q_reprompt.template')
+        q_reprompt = (self.load_template(f'resources/prompts/{self.lang}/q_reprompt.template')
                       .replace("$FLAG$", FLAGS["question"]))
-        d_reprompt = (self.load_template('resources/prompts/d_reprompt.template')
+        d_reprompt = (self.load_template(f'resources/prompts/{self.lang}/d_reprompt.template')
                       .replace("$SOL_SAME$", SOL_SAME)
                       .replace("$SOL_DIFF$", SOL_DIFF)
                       .replace("$FLAG$", FLAGS["decision"]))
-        a_request = (self.load_template('resources/prompts/a_request.template')
+        a_request = (self.load_template(f'resources/prompts/{self.lang}/a_request.template')
                      .replace("$FLAG$", FLAGS["answer"]))
-        desc_intro = self.load_template('resources/prompts/description_introduction.template')
+        desc_intro = self.load_template(f'resources/prompts/{self.lang}/description_introduction.template')
 
         if INFO_NUM_QUESTIONS:
-            sentence_num_questions = (self.load_template('resources/prompts/info_num_questions.template')
+            sentence_num_questions = (self.load_template(f'resources/prompts/{self.lang}/info_num_questions.template')
                                       .replace("$DEC_TURN$", str(DEC_TURN)))
             initial_prompt = initial_prompt.replace("$NUM_QUESTIONS$", sentence_num_questions)
         else:
@@ -96,4 +103,9 @@ class MatchItAsciiInstanceGenerator(GameInstanceGenerator):
 
 
 if __name__ == "__main__":
-    MatchItAsciiInstanceGenerator().generate(seed=123)
+    for lang in ["en", "hu"]:
+        MatchItAsciiInstanceGenerator().generate(
+            filename=f"instances_{lang}.json",
+            seed=123,
+            lang=lang
+        )
