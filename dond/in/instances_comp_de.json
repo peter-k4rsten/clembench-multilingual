@@ -1,0 +1,1500 @@
+{
+  "experiments": [
+    {
+      "name": "comp_de",
+      "game_instances": [
+        {
+          "game_id": 0,
+          "item_types": [
+            "Schlüssel",
+            "Traube",
+            "Schuh"
+          ],
+          "item_types_plural": [
+            "Schlüssel",
+            "Trauben",
+            "Schuhe"
+          ],
+          "item_counts": [
+            2,
+            2,
+            2
+          ],
+          "player_a_values": [
+            2,
+            1,
+            2
+          ],
+          "player_b_values": [
+            4,
+            1,
+            0
+          ]
+        },
+        {
+          "game_id": 1,
+          "item_types": [
+            "Haken",
+            "Bleistift",
+            "Buntstift",
+            "Puppe"
+          ],
+          "item_types_plural": [
+            "Haken",
+            "Bleistifte",
+            "Buntstifte",
+            "Puppen"
+          ],
+          "item_counts": [
+            1,
+            2,
+            1,
+            1
+          ],
+          "player_a_values": [
+            3,
+            0,
+            4,
+            3
+          ],
+          "player_b_values": [
+            1,
+            4,
+            1,
+            0
+          ]
+        },
+        {
+          "game_id": 2,
+          "item_types": [
+            "Samen",
+            "Armbanduhr",
+            "Seife"
+          ],
+          "item_types_plural": [
+            "Samen",
+            "Armbanduhren",
+            "Seifen"
+          ],
+          "item_counts": [
+            3,
+            1,
+            2
+          ],
+          "player_a_values": [
+            1,
+            3,
+            2
+          ],
+          "player_b_values": [
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 3,
+          "item_types": [
+            "Tasche",
+            "Armbanduhr",
+            "Faden"
+          ],
+          "item_types_plural": [
+            "Taschen",
+            "Armbanduhren",
+            "Fäden"
+          ],
+          "item_counts": [
+            3,
+            3,
+            1
+          ],
+          "player_a_values": [
+            0,
+            3,
+            1
+          ],
+          "player_b_values": [
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "game_id": 4,
+          "item_types": [
+            "Seife",
+            "Haken",
+            "Samen",
+            "Tomate"
+          ],
+          "item_types_plural": [
+            "Seifen",
+            "Haken",
+            "Samen",
+            "Tomaten"
+          ],
+          "item_counts": [
+            1,
+            1,
+            2,
+            1
+          ],
+          "player_a_values": [
+            0,
+            0,
+            4,
+            2
+          ],
+          "player_b_values": [
+            7,
+            2,
+            0,
+            1
+          ]
+        },
+        {
+          "game_id": 5,
+          "item_types": [
+            "Vase",
+            "Klammer",
+            "Spielzeug"
+          ],
+          "item_types_plural": [
+            "Vasen",
+            "Klammern",
+            "Spielzeuge"
+          ],
+          "item_counts": [
+            3,
+            1,
+            1
+          ],
+          "player_a_values": [
+            2,
+            4,
+            0
+          ],
+          "player_b_values": [
+            1,
+            5,
+            2
+          ]
+        },
+        {
+          "game_id": 6,
+          "item_types": [
+            "Besen",
+            "Schuh",
+            "Münze"
+          ],
+          "item_types_plural": [
+            "Besen",
+            "Schuhe",
+            "Münzen"
+          ],
+          "item_counts": [
+            1,
+            3,
+            1
+          ],
+          "player_a_values": [
+            6,
+            0,
+            4
+          ],
+          "player_b_values": [
+            2,
+            1,
+            5
+          ]
+        },
+        {
+          "game_id": 7,
+          "item_types": [
+            "Löffel",
+            "Schere",
+            "Blatt"
+          ],
+          "item_types_plural": [
+            "Löffel",
+            "Scheren",
+            "Blätter"
+          ],
+          "item_counts": [
+            3,
+            2,
+            1
+          ],
+          "player_a_values": [
+            0,
+            3,
+            4
+          ],
+          "player_b_values": [
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "game_id": 8,
+          "item_types": [
+            "Seil",
+            "Frucht",
+            "Fingerhut",
+            "Beere"
+          ],
+          "item_types_plural": [
+            "Seile",
+            "Früchte",
+            "Fingerhüte",
+            "Beeren"
+          ],
+          "item_counts": [
+            1,
+            2,
+            1,
+            1
+          ],
+          "player_a_values": [
+            1,
+            1,
+            1,
+            6
+          ],
+          "player_b_values": [
+            0,
+            1,
+            8,
+            0
+          ]
+        },
+        {
+          "game_id": 9,
+          "item_types": [
+            "Kiste",
+            "Pfeife",
+            "Stuhl",
+            "Schraubenschlüssel"
+          ],
+          "item_types_plural": [
+            "Kisten",
+            "Pfeifen",
+            "Stühle",
+            "Schraubenschlüssel"
+          ],
+          "item_counts": [
+            1,
+            1,
+            1,
+            2
+          ],
+          "player_a_values": [
+            4,
+            1,
+            5,
+            0
+          ],
+          "player_b_values": [
+            0,
+            2,
+            6,
+            1
+          ]
+        },
+        {
+          "game_id": 10,
+          "item_types": [
+            "Pfeife",
+            "Telefon",
+            "Traube"
+          ],
+          "item_types_plural": [
+            "Pfeifen",
+            "Telefone",
+            "Trauben"
+          ],
+          "item_counts": [
+            1,
+            2,
+            2
+          ],
+          "player_a_values": [
+            2,
+            4,
+            0
+          ],
+          "player_b_values": [
+            8,
+            0,
+            1
+          ]
+        },
+        {
+          "game_id": 11,
+          "item_types": [
+            "Bolzen",
+            "Schwamm",
+            "Schraube"
+          ],
+          "item_types_plural": [
+            "Bolzen",
+            "Schwämme",
+            "Schrauben"
+          ],
+          "item_counts": [
+            3,
+            1,
+            1
+          ],
+          "player_a_values": [
+            1,
+            4,
+            3
+          ],
+          "player_b_values": [
+            1,
+            6,
+            1
+          ]
+        },
+        {
+          "game_id": 12,
+          "item_types": [
+            "Puppe",
+            "Schlüssel",
+            "Briefmarke"
+          ],
+          "item_types_plural": [
+            "Puppen",
+            "Schlüssel",
+            "Briefmarken"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            4,
+            2,
+            0
+          ],
+          "player_b_values": [
+            3,
+            2,
+            1
+          ]
+        },
+        {
+          "game_id": 13,
+          "item_types": [
+            "Stein",
+            "Stuhl",
+            "Statue"
+          ],
+          "item_types_plural": [
+            "Steine",
+            "Stühle",
+            "Statuen"
+          ],
+          "item_counts": [
+            4,
+            1,
+            1
+          ],
+          "player_a_values": [
+            2,
+            0,
+            2
+          ],
+          "player_b_values": [
+            0,
+            1,
+            9
+          ]
+        },
+        {
+          "game_id": 14,
+          "item_types": [
+            "Frucht",
+            "Uhr",
+            "Besen"
+          ],
+          "item_types_plural": [
+            "Früchte",
+            "Uhren",
+            "Besen"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            1,
+            8,
+            0
+          ],
+          "player_b_values": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "game_id": 15,
+          "item_types": [
+            "Pfanne",
+            "Handschuh",
+            "Schere"
+          ],
+          "item_types_plural": [
+            "Pfannen",
+            "Handschuhe",
+            "Scheren"
+          ],
+          "item_counts": [
+            1,
+            2,
+            3
+          ],
+          "player_a_values": [
+            5,
+            1,
+            1
+          ],
+          "player_b_values": [
+            4,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 16,
+          "item_types": [
+            "Hut",
+            "Schuh",
+            "Topf"
+          ],
+          "item_types_plural": [
+            "Hüte",
+            "Schuhe",
+            "Töpfe"
+          ],
+          "item_counts": [
+            3,
+            2,
+            1
+          ],
+          "player_a_values": [
+            2,
+            1,
+            2
+          ],
+          "player_b_values": [
+            1,
+            3,
+            1
+          ]
+        },
+        {
+          "game_id": 17,
+          "item_types": [
+            "Umschlag",
+            "Schwamm",
+            "Rahmen"
+          ],
+          "item_types_plural": [
+            "Umschläge",
+            "Schwämme",
+            "Rahmen"
+          ],
+          "item_counts": [
+            3,
+            1,
+            1
+          ],
+          "player_a_values": [
+            0,
+            8,
+            2
+          ],
+          "player_b_values": [
+            1,
+            2,
+            5
+          ]
+        },
+        {
+          "game_id": 18,
+          "item_types": [
+            "Teller",
+            "Uhr",
+            "Bild",
+            "Schere"
+          ],
+          "item_types_plural": [
+            "Teller",
+            "Uhren",
+            "Bilder",
+            "Scheren"
+          ],
+          "item_counts": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "player_a_values": [
+            1,
+            2,
+            3,
+            3
+          ],
+          "player_b_values": [
+            3,
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "game_id": 19,
+          "item_types": [
+            "Handtuch",
+            "Kiste",
+            "Zitrone",
+            "Schraube"
+          ],
+          "item_types_plural": [
+            "Handtücher",
+            "Kisten",
+            "Zitronen",
+            "Schrauben"
+          ],
+          "item_counts": [
+            1,
+            1,
+            2,
+            1
+          ],
+          "player_a_values": [
+            3,
+            0,
+            2,
+            3
+          ],
+          "player_b_values": [
+            7,
+            3,
+            0,
+            0
+          ]
+        },
+        {
+          "game_id": 20,
+          "item_types": [
+            "Messer",
+            "Paprika",
+            "Stift",
+            "Bleistift"
+          ],
+          "item_types_plural": [
+            "Messer",
+            "Paprikas",
+            "Stifte",
+            "Bleistifte"
+          ],
+          "item_counts": [
+            1,
+            1,
+            1,
+            2
+          ],
+          "player_a_values": [
+            4,
+            3,
+            1,
+            1
+          ],
+          "player_b_values": [
+            0,
+            5,
+            1,
+            2
+          ]
+        },
+        {
+          "game_id": 21,
+          "item_types": [
+            "Bürste",
+            "Pfanne",
+            "Faden"
+          ],
+          "item_types_plural": [
+            "Bürsten",
+            "Pfannen",
+            "Fäden"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            1,
+            2,
+            3
+          ],
+          "player_b_values": [
+            5,
+            0,
+            0
+          ]
+        },
+        {
+          "game_id": 22,
+          "item_types": [
+            "Schwamm",
+            "Fernbedienung",
+            "Würfel"
+          ],
+          "item_types_plural": [
+            "Schwämme",
+            "Fernbedienungen",
+            "Würfel"
+          ],
+          "item_counts": [
+            3,
+            1,
+            2
+          ],
+          "player_a_values": [
+            3,
+            1,
+            0
+          ],
+          "player_b_values": [
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "game_id": 23,
+          "item_types": [
+            "Spielzeug",
+            "Bild",
+            "Seil"
+          ],
+          "item_types_plural": [
+            "Spielzeuge",
+            "Bilder",
+            "Seile"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            3,
+            2,
+            1
+          ],
+          "player_b_values": [
+            5,
+            0,
+            0
+          ]
+        },
+        {
+          "game_id": 24,
+          "item_types": [
+            "Teller",
+            "Haken",
+            "Blatt"
+          ],
+          "item_types_plural": [
+            "Teller",
+            "Haken",
+            "Blätter"
+          ],
+          "item_counts": [
+            2,
+            2,
+            1
+          ],
+          "player_a_values": [
+            1,
+            4,
+            0
+          ],
+          "player_b_values": [
+            1,
+            1,
+            6
+          ]
+        },
+        {
+          "game_id": 25,
+          "item_types": [
+            "Kartoffel",
+            "Blume",
+            "Würfel"
+          ],
+          "item_types_plural": [
+            "Kartoffeln",
+            "Blumen",
+            "Würfel"
+          ],
+          "item_counts": [
+            1,
+            3,
+            1
+          ],
+          "player_a_values": [
+            8,
+            0,
+            2
+          ],
+          "player_b_values": [
+            2,
+            2,
+            2
+          ]
+        },
+        {
+          "game_id": 26,
+          "item_types": [
+            "Schere",
+            "Seife",
+            "Messer",
+            "Draht"
+          ],
+          "item_types_plural": [
+            "Scheren",
+            "Seifen",
+            "Messer",
+            "Drähte"
+          ],
+          "item_counts": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "player_a_values": [
+            2,
+            0,
+            3,
+            3
+          ],
+          "player_b_values": [
+            1,
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "game_id": 27,
+          "item_types": [
+            "Schaufel",
+            "Bürste",
+            "Handschuh"
+          ],
+          "item_types_plural": [
+            "Schaufeln",
+            "Bürsten",
+            "Handschuhe"
+          ],
+          "item_counts": [
+            2,
+            3,
+            1
+          ],
+          "player_a_values": [
+            1,
+            0,
+            8
+          ],
+          "player_b_values": [
+            2,
+            2,
+            0
+          ]
+        },
+        {
+          "game_id": 28,
+          "item_types": [
+            "Flasche",
+            "Pfeife",
+            "Schüssel"
+          ],
+          "item_types_plural": [
+            "Flaschen",
+            "Pfeifen",
+            "Schüsseln"
+          ],
+          "item_counts": [
+            3,
+            1,
+            1
+          ],
+          "player_a_values": [
+            1,
+            3,
+            4
+          ],
+          "player_b_values": [
+            3,
+            1,
+            0
+          ]
+        },
+        {
+          "game_id": 29,
+          "item_types": [
+            "Flasche",
+            "Mutter",
+            "Glas"
+          ],
+          "item_types_plural": [
+            "Flaschen",
+            "Muttern",
+            "Gläser"
+          ],
+          "item_counts": [
+            3,
+            1,
+            2
+          ],
+          "player_a_values": [
+            0,
+            8,
+            1
+          ],
+          "player_b_values": [
+            2,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 30,
+          "item_types": [
+            "Hammer",
+            "Muschel",
+            "Uhr",
+            "Buntstift"
+          ],
+          "item_types_plural": [
+            "Hämmer",
+            "Muscheln",
+            "Uhren",
+            "Buntstifte"
+          ],
+          "item_counts": [
+            1,
+            1,
+            3,
+            1
+          ],
+          "player_a_values": [
+            2,
+            0,
+            2,
+            2
+          ],
+          "player_b_values": [
+            3,
+            2,
+            1,
+            2
+          ]
+        },
+        {
+          "game_id": 31,
+          "item_types": [
+            "Vase",
+            "Mutter",
+            "Puppe"
+          ],
+          "item_types_plural": [
+            "Vasen",
+            "Muttern",
+            "Puppen"
+          ],
+          "item_counts": [
+            1,
+            1,
+            3
+          ],
+          "player_a_values": [
+            3,
+            4,
+            1
+          ],
+          "player_b_values": [
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "game_id": 32,
+          "item_types": [
+            "Bild",
+            "Lampe",
+            "Stuhl"
+          ],
+          "item_types_plural": [
+            "Bilder",
+            "Lampen",
+            "Stühle"
+          ],
+          "item_counts": [
+            2,
+            2,
+            1
+          ],
+          "player_a_values": [
+            1,
+            1,
+            6
+          ],
+          "player_b_values": [
+            0,
+            1,
+            8
+          ]
+        },
+        {
+          "game_id": 33,
+          "item_types": [
+            "Tisch",
+            "Messer",
+            "Blatt",
+            "Frucht"
+          ],
+          "item_types_plural": [
+            "Tische",
+            "Messer",
+            "Blätter",
+            "Früchte"
+          ],
+          "item_counts": [
+            1,
+            2,
+            1,
+            1
+          ],
+          "player_a_values": [
+            2,
+            1,
+            2,
+            4
+          ],
+          "player_b_values": [
+            0,
+            3,
+            0,
+            4
+          ]
+        },
+        {
+          "game_id": 34,
+          "item_types": [
+            "Pfeife",
+            "Löffel",
+            "Muschel",
+            "Stift"
+          ],
+          "item_types_plural": [
+            "Pfeifen",
+            "Löffel",
+            "Muscheln",
+            "Stifte"
+          ],
+          "item_counts": [
+            1,
+            1,
+            2,
+            1
+          ],
+          "player_a_values": [
+            0,
+            2,
+            3,
+            2
+          ],
+          "player_b_values": [
+            1,
+            2,
+            1,
+            5
+          ]
+        },
+        {
+          "game_id": 35,
+          "item_types": [
+            "Münze",
+            "Eimer",
+            "Ei"
+          ],
+          "item_types_plural": [
+            "Münzen",
+            "Eimer",
+            "Eier"
+          ],
+          "item_counts": [
+            2,
+            3,
+            3
+          ],
+          "player_a_values": [
+            2,
+            2,
+            0
+          ],
+          "player_b_values": [
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "game_id": 36,
+          "item_types": [
+            "Blatt",
+            "Ziegel",
+            "Schaufel"
+          ],
+          "item_types_plural": [
+            "Blätter",
+            "Ziegel",
+            "Schaufeln"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            2,
+            2,
+            2
+          ],
+          "player_b_values": [
+            3,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 37,
+          "item_types": [
+            "Rahmen",
+            "Telefon",
+            "Fingerhut"
+          ],
+          "item_types_plural": [
+            "Rahmen",
+            "Telefone",
+            "Fingerhüte"
+          ],
+          "item_counts": [
+            2,
+            1,
+            3
+          ],
+          "player_a_values": [
+            1,
+            2,
+            2
+          ],
+          "player_b_values": [
+            0,
+            7,
+            1
+          ]
+        },
+        {
+          "game_id": 38,
+          "item_types": [
+            "Tomate",
+            "Süßigkeit",
+            "Stock"
+          ],
+          "item_types_plural": [
+            "Tomaten",
+            "Süßigkeiten",
+            "Stöcke"
+          ],
+          "item_counts": [
+            2,
+            4,
+            2
+          ],
+          "player_a_values": [
+            3,
+            1,
+            0
+          ],
+          "player_b_values": [
+            4,
+            0,
+            1
+          ]
+        },
+        {
+          "game_id": 39,
+          "item_types": [
+            "Süßigkeit",
+            "Buch",
+            "Tasse",
+            "Klebstoff"
+          ],
+          "item_types_plural": [
+            "Süßigkeiten",
+            "Bücher",
+            "Tassen",
+            "Klebstoffe"
+          ],
+          "item_counts": [
+            1,
+            1,
+            2,
+            2
+          ],
+          "player_a_values": [
+            2,
+            2,
+            1,
+            2
+          ],
+          "player_b_values": [
+            6,
+            0,
+            2,
+            0
+          ]
+        },
+        {
+          "game_id": 40,
+          "item_types": [
+            "Draht",
+            "Radiergummi",
+            "Tasse"
+          ],
+          "item_types_plural": [
+            "Drähte",
+            "Radiergummis",
+            "Tassen"
+          ],
+          "item_counts": [
+            3,
+            1,
+            2
+          ],
+          "player_a_values": [
+            0,
+            6,
+            2
+          ],
+          "player_b_values": [
+            1,
+            5,
+            1
+          ]
+        },
+        {
+          "game_id": 41,
+          "item_types": [
+            "Ziegel",
+            "Schüssel",
+            "Samen"
+          ],
+          "item_types_plural": [
+            "Ziegel",
+            "Schüsseln",
+            "Samen"
+          ],
+          "item_counts": [
+            2,
+            2,
+            1
+          ],
+          "player_a_values": [
+            2,
+            0,
+            6
+          ],
+          "player_b_values": [
+            4,
+            1,
+            0
+          ]
+        },
+        {
+          "game_id": 42,
+          "item_types": [
+            "Seil",
+            "Kreide",
+            "Leinwand",
+            "Hammer"
+          ],
+          "item_types_plural": [
+            "Seile",
+            "Kreiden",
+            "Leinwände",
+            "Hämmer"
+          ],
+          "item_counts": [
+            2,
+            1,
+            1,
+            1
+          ],
+          "player_a_values": [
+            0,
+            4,
+            3,
+            3
+          ],
+          "player_b_values": [
+            1,
+            1,
+            4,
+            3
+          ]
+        },
+        {
+          "game_id": 43,
+          "item_types": [
+            "Ziegel",
+            "Lineal",
+            "Rahmen"
+          ],
+          "item_types_plural": [
+            "Ziegel",
+            "Lineale",
+            "Rahmen"
+          ],
+          "item_counts": [
+            2,
+            2,
+            3
+          ],
+          "player_a_values": [
+            5,
+            0,
+            0
+          ],
+          "player_b_values": [
+            1,
+            1,
+            2
+          ]
+        },
+        {
+          "game_id": 44,
+          "item_types": [
+            "Rahmen",
+            "Besen",
+            "Knopf"
+          ],
+          "item_types_plural": [
+            "Rahmen",
+            "Besen",
+            "Knöpfe"
+          ],
+          "item_counts": [
+            1,
+            3,
+            3
+          ],
+          "player_a_values": [
+            7,
+            1,
+            0
+          ],
+          "player_b_values": [
+            4,
+            1,
+            1
+          ]
+        },
+        {
+          "game_id": 45,
+          "item_types": [
+            "Fels",
+            "Blume",
+            "Hammer"
+          ],
+          "item_types_plural": [
+            "Felsen",
+            "Blumen",
+            "Hämmer"
+          ],
+          "item_counts": [
+            2,
+            1,
+            2
+          ],
+          "player_a_values": [
+            0,
+            8,
+            1
+          ],
+          "player_b_values": [
+            3,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 46,
+          "item_types": [
+            "Schaufel",
+            "Stift",
+            "Blume",
+            "Bolzen",
+            "Faden"
+          ],
+          "item_types_plural": [
+            "Schaufeln",
+            "Stifte",
+            "Blumen",
+            "Bolzen",
+            "Fäden"
+          ],
+          "item_counts": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "player_a_values": [
+            1,
+            3,
+            2,
+            1,
+            3
+          ],
+          "player_b_values": [
+            1,
+            3,
+            0,
+            2,
+            4
+          ]
+        },
+        {
+          "game_id": 47,
+          "item_types": [
+            "Schüssel",
+            "Bild",
+            "Armbanduhr"
+          ],
+          "item_types_plural": [
+            "Schüsseln",
+            "Bilder",
+            "Armbanduhren"
+          ],
+          "item_counts": [
+            1,
+            1,
+            3
+          ],
+          "player_a_values": [
+            6,
+            1,
+            1
+          ],
+          "player_b_values": [
+            4,
+            0,
+            2
+          ]
+        },
+        {
+          "game_id": 48,
+          "item_types": [
+            "Karotte",
+            "Teller",
+            "Klebstoff",
+            "Topf",
+            "Zange"
+          ],
+          "item_types_plural": [
+            "Karotten",
+            "Teller",
+            "Klebstoffe",
+            "Töpfe",
+            "Zangen"
+          ],
+          "item_counts": [
+            1,
+            2,
+            1,
+            1,
+            1
+          ],
+          "player_a_values": [
+            2,
+            1,
+            0,
+            0,
+            6
+          ],
+          "player_b_values": [
+            0,
+            0,
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "game_id": 49,
+          "item_types": [
+            "Stuhl",
+            "Gabel",
+            "Paprika"
+          ],
+          "item_types_plural": [
+            "Stühle",
+            "Gabeln",
+            "Paprikas"
+          ],
+          "item_counts": [
+            1,
+            3,
+            2
+          ],
+          "player_a_values": [
+            4,
+            2,
+            0
+          ],
+          "player_b_values": [
+            0,
+            2,
+            2
+          ]
+        }
+      ],
+      "max_turns": 5,
+      "mode": "comp",
+      "language": "de",
+      "initial_prompt": "Sie spielen ein kompetitives Verhandlungsspiel, bei dem Sie sich mit einem anderen Spieler darauf einigen müssen, wie eine Reihe von Gegenständen aufgeteilt werden soll.\n\nDie Regeln:\n(a) Sie und der andere Spieler erhalten eine Sammlung von Gegenständen. Jeder von Ihnen erhält außerdem eine geheime Wertfunktion, die angibt, wie viel Ihnen jede Art von Gegenstand wert ist.\n(b) Sie tauschen Nachrichten mit dem anderen Spieler aus, um zu vereinbaren, wer welche Gegenstände bekommt. Sie können jeweils maximal $N$ Nachrichten senden oder das Spiel vorzeitig beenden, indem Sie jederzeit einen geheimen Vorschlag machen.\n(c) Jeder von euch wird aufgefordert, einen geheimen Vorschlag zu machen, in dem ihr die gewünschten Gegenstände in eckigen Klammern wie folgt angibt: \"[Vorschlag: <Nummer> <Objektname>, <Nummer> <Objektname>, <...>]\"\n(d) Wenn eure Vorschläge komplementär sind, d.h. es gibt genug Gegenstände, um beide Vorschläge zu erfüllen, erhält jeder Spieler eine Punktzahl, die sich aus der Summe der Werte für die Gegenstände ergibt, die er erhalten hat. Andernfalls erhalten Sie beide null Punkte.\n(e) Ihr Ziel ist es, die Differenz zwischen Ihrer Punktzahl und der Punktzahl des anderen Spielers zu maximieren.\n\nBeginnen wir.\n\nDie Menge der verfügbaren Gegenstände ist:\n\n$ITEMS$\n\nDeine geheime Wertfunktion ist:\n\n$VALUE_FUNCTION$\n\nWICHTIG: Ihre Nachrichten werden, sofern es sich nicht um einen geheimen Vorschlag handelt, direkt an den anderen Spieler übermittelt, also fügen Sie keine Antwort auf die Regeln oder einen Text zur Ankündigung Ihrer Nachricht ein. Um einen geheimen Vorschlag zu machen, verwenden Sie das angegebene Format. Verwenden Sie keine eckigen Klammern, wenn Sie mit dem anderen Spieler kommunizieren, sonst wird dies als Ihr geheimer Vorschlag interpretiert.\n",
+      "proposal_early": "Der andere Spieler hat einen geheimen Vorschlag gemacht. Jetzt bist du an der Reihe, einen eigenen Vorschlag zu machen.\n",
+      "proposal_timeout": "Die Zeit ist um. Sie sind jetzt an der Reihe, einen geheimen Vorschlag einzureichen.\n"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Egy versengő tárgyalási játékot játszol, amelyben meg kell egyeznetek arról, hogyan osszátok fel egy adott tárgykészletet közted és egy másik játékos között.
+Szabályok:
+(a) Te és a másik játékos kaptok egy tárgykészletet. Mindketten kaptok egy titkos értékfüggvényt is, amely azt mutatja, mennyire értékeled az egyes tárgytípusokat.
+(b) Üzeneteket váltotok a másik játékossal, hogy megegyezzetek, ki melyik tárgyat kapja. Legfeljebb $N$ üzenetet küldhettek fejenként, vagy bármikor korábban befejezhetitek a játékot egy titkos javaslat benyújtásával.
+(c) Mindkettőtöktől kérnek egy titkos javaslatot, amelyben megjelölitek, mely tárgyakat szeretnétek. A formátum szögletes zárójelben a következő:
+"[Javaslat: <szám> <tárgy neve>, <szám> <tárgy neve>, <...>]"
+(d) Ha a javaslataitok kiegészítik egymást, vagyis elegendő tárgy van mindkét javaslat teljesítéséhez, akkor mindkét játékos pontszámot kap az általa megszerzett tárgyak értékeinek összege alapján. Ellenkező esetben mindketten nulla pontot kaptok.
+(e) A célod az, hogy maximalizáld a saját pontszámod és a másik játékos pontszáma közötti különbséget.
+Kezdjük.
+Az elérhető tárgyak halmaza:
+$ITEMS$
+A titkos értékfüggvényed:
+$VALUE_FUNCTION$
+FONTOS: Az üzeneteid — kivéve a titkos javaslatot — közvetlenül továbbításra kerülnek a másik játékosnak, ezért ne tartalmazzanak semmilyen választ a szabályokra vagy a szöveget, amely az üzenetedet bejelenti. A titkos javaslathoz használd a megadott formátumot. Ne használj szögletes zárójeleket a másik játékossal való kommunikáció során, mert azt titkos javaslatként fogják értelmezni.
