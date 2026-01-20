@@ -25,5 +25,14 @@
     "restriction": "Deine Nachricht enthält regelwidrige Angaben!",
     "invalid_format": "Deine Nachricht entspricht keinem gültigen Format!",
     "invalid_start": "Du musst das Spiel beginnen, indem du eine Nachricht an den anderen Spieler sendest!"
+  },
+  "hu": {
+    "head": "Az üzeneted nem tartalmazhat semmit a parancs előtt!",
+    "tail": "Az üzeneted nem tartalmazhat semmit a parancs után!",
+    "head_tail": "Az üzeneted nem tartalmazhat semmit a parancs előtt vagy után!",
+    "several_commands": "Az üzeneted több mint egy parancsot tartalmaz!",
+    "restriction": "Az üzeneted tiltott tartalmat tartalmaz!",
+    "invalid_format": "Az üzeneted formátuma nem megfelelő!",
+    "invalid_start": "A játékot egy üzenet küldésével kell kezdened a másik játékosnak!"
   }
 }

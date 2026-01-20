@@ -43,5 +43,20 @@
     "terminate_question": "fertig?",
     "end_2": "SPRICH: fertig!",
     "terminate_answer": "fertig!"
+  },
+  "hu": {
+    "say_keyword": "MONDD",
+    "say": "MONDD: <ÜZENET>",
+    "say_pattern": "(?P<head>.*)MONDD: (?P<message>[^\\n]+)(?P<tail>.*)",
+    "move_keyword": "MOZGASD",
+    "move": {
+      "text,hybrid,semantic_text":  "MOZGASD: <OBJECT>, (<X>, <Y>)",
+      "image": "MOZGASD: <OBJECT>, (<X>, <Y>)"
+    },
+    "move_pattern": "(?P<head>.*)MOZGASD: (?P<obj>[A-Z]), \\((?P<x>\\d+), ?(?P<y>\\d+)\\)(?P<tail>.*)",
+    "end_1": "MONDD: kész?",
+    "terminate_question": "kész?",
+    "end_2": "MONDD: kész!",
+    "terminate_answer": "kész!"
   }
 }

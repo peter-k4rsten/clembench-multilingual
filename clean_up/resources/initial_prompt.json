@@ -107,5 +107,41 @@
         },
         "end_of_game": "**游戏结束：**\n\n如果你认为已达到目标，可以发送`$end_1`提议结束游戏。如果对方提议结束游戏，而你回复`$end_2`，游戏将结束。\n\n如果游戏在`$max_rounds`回合内结束（每回合定义为两位玩家各发送一个有效指令），则双方玩家获胜。\n",
         "scoring": "**评分规则：**\n\n两个网格中相同的物体越接近，你获得的分数就越高。犯规会导致扣分。你们能打破纪录吗？"
+    },
+    "hu": {
+        "board_description": {
+            "text": "Én vagyok a játékmestered, és egy együttműködésen alapuló játékot játszol az alábbi rács segítségével:\\n\\n```\\n$grid\\n```\\n\\n* A felső szélén az x-koordináták jobbra növekednek, a jobb szélén pedig az y-koordináták lefelé növekednek.\\n* A következő tárgyak véletlenszerűen helyezkednek el a rácsodon: $objects.\\n\\n",
+            "image": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol:\\n\\n* A jobb oldalon egy jelmagyarázat látható, amely több tárgyat és a hozzájuk tartozó azonosítókat mutatja. Érvényes azonosítók: $objects\\n\\n* A bal oldalon van a játéktáblád, amely egy háttérből és az azon véletlenszerű koordinátákra helyezett tárgyakból áll. A bal és alsó széleken egy x–y koordináta-rendszer látható. Figyelj arra, hogy az y-tengely lefelé növekszik.\\n\\n",
+            "hybrid": "Én vagyok a játékmestered, és az alábbi képen alapuló együttműködésen alapuló játékot játszol.\\n\\n* A képen egy rács látható, ahol az x-koordináták felfelé a felső élen jobbra növekednek, az y-koordináták pedig a jobb oldalon lefelé.\\n* A következő tárgyak véletlenszerűen helyezkednek el a rácsodon: $objects.\\n\\n",
+            "semantic_text": "Én vagyok a játékmestered, és egy együttműködésen alapuló játékot játszol az alábbi rács segítségével:\\n\\n```\\n$grid\\n```\\n\\n* A rács egy keretből, '$empty_symbol' jellel megjelölt üres helyekből és szimbólumblokkokból áll, melyeket szögletes zárójelek ('[]') vesznek körül.\\n\\n* A felső szélén az x-koordináták jobbra növekednek 5-ös lépésekben, a jobb szélén pedig az y-koordináták lefelé növekednek.\\n* A következő tárgyak véletlenszerűen helyezkednek el a rácsodon: $objects.\\n\\n"
+        },
+        "introduction": {
+            "text,hybrid,semantic_text": "A másik játékos a táblának egy másik változatát látja, ahol a tárgyak különböző véletlenszerű helyeken vannak. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n",
+            "image": "A másik játékos a képek egy másik változatát látja, ahol az azonosítók fel vannak cserélve, és a tárgyakat más helyekre tették a táblán. Te nem látod az ő tábláját, és ő sem látja a tiédet.\n\n"
+        },
+        "goal": "**Cél:**\n\nMindkét játékosnak el kell helyeznie a saját tábláján lévő tárgyakat úgy, hogy azonos tárgyak ugyanazokra a koordinátákra kerüljenek. Kommunikálnotok kell, hogy közös célt érjetek el.\n\n",
+        "rule_intro": "**Szabályok:**\n\n* Minden körben pontosan egyet küldhetsz az alábbi két parancs közül:",
+        "explain_say": {
+            "text,hybrid,image": "1. `$say`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki.",
+            "semantic_text": "1. `$say`: ezzel egy üzenetet küldhetsz a másik játékosnak (minden a következő sortörésig). Én továbbítom neki. Használd ezt a parancsot annak megbeszélésére, hogy melyik tárgyat hova szeretnétek mozgatni. Ne használj koordinátákat, számokat vagy olyan szavakat, mint 'sor/oszlop/vonal'. Ehelyett a háttérbeli tárgyakra hivatkozz."
+        },
+        "explain_move": {
+            "text,hybrid,semantic_text": "2. `$move`: ezzel egy tárgyat mozgathatsz egy új pozícióba, ahol `<X>` az oszlop, `<Y>` pedig a sor. Én visszajelzek, hogy sikeres volt-e a lépés.",
+            "image": "2. `$move`: ezzel a tárgyat, amelynek azonosítója `<ID>`, a megadott `(<X>,<Y>)` koordinátára mozgatod. A másik játékos nem látja, mit mozgattál hova."
+        },
+        "explain_restrictions": {
+            "text,hybrid": "* Ha nem tartod be a formátumot, vagy több parancsot küldesz egyszerre, büntetést kapsz.",
+            "image": "* Nem használhatsz koordinátákat, amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy koordinátát használsz, büntetést kapsz.",
+            "semantic_text": "* Nem használhatsz koordinátákat, számokat vagy olyan szavakat, mint 'sor/oszlop/vonal', amikor a másik játékossal kommunikálsz.\n* Ha nem tartod be a formátumot, több parancsot küldesz egyszerre, vagy tiltott tartalmat használsz, büntetést kapsz."
+        },
+        "rule_end": "* Ha mindketten több mint $max_penalties büntetést kaptok, elveszítitek a játékot.\n* Elengedhetetlen, hogy egyeztessetek a célállapotról! Az egyetlen mód, ahogyan stratégiát cserélhettek, a `$say` parancs!\n\n",
+        "moving_objects": {
+            "text": "**Tárgyak mozgatása**\n\n* Csak a rács határain belül, üres cellákba mozgathatsz tárgyakat. Az üres cellák '$empty_symbol' szimbólummal vannak jelölve.\n* Ha nem üres cellába vagy a rácson kívülre próbálod mozgatni, büntetést kapsz, de újra próbálkozhatsz.\n* Mielőtt lépsz, ellenőrizd, hogy az adott cella valóban üres – ne tartalmazzon betűt, keretet vagy vonalat!\n\n",
+            "image": "**Tárgyak mozgatása**\n\n* Csak azokat a tárgyakat mozgathatod, amelyek a saját jelmagyarázatodban szerepelnek.\n* Ahhoz, hogy meg tudjatok egyezni, pontosan és egyértelműen kell leírnod a tárgyat, hogy a másik játékos is tudja, melyikről van szó. Ne használd a tárgy azonosítóját, mert az nála más lehet!\n* A célpozíciót csak a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n",
+            "hybrid": "**Tárgyak mozgatása**\n\n* Csak a rács határain belül, üres cellákba mozgathatsz tárgyakat. Az üres cellák egy kis pontozott körrel vannak jelölve.\n* Ha nem üres cellába vagy a rácson kívülre próbálod mozgatni, büntetést kapsz, de újra próbálkozhatsz.\n* Mielőtt lépsz, ellenőrizd, hogy az adott cella valóban üres – ne tartalmazzon betűt, keretet vagy vonalat!\n\n",
+            "semantic_text": "**Tárgyak mozgatása**\n\n* Csak a rácson belül mozgathatsz tárgyakat. Ha ezen kívülre próbálod, büntetést kapsz.\n* A célpozíciót kizárólag a háttér alapján írd le, ne más tárgyakhoz viszonyítva!\n\n"
+        },
+        "end_of_game": "**A játék vége**\n\nHa úgy gondolod, hogy minden tárgy összehangolt helyre került, kérheted a másik játékost, hogy fejezzétek be a játékot a `$end_1` parancs elküldésével. Ha a másik játékos kér erre, és te `$end_2`-vel válaszolsz, a játék véget ér.\n\nA játékot megnyeritek, ha az $max_rounds körön belül véget ér. Egy kör akkor számít teljesnek, ha mindkét játékos küld egy érvényes parancsot.\n",
+        "scoring": "**Pontozás:**\n\nMinél közelebb kerülnek az azonos tárgyak a két játéktáblán, annál több pontot kaptok. A hibákért levonás jár. Vajon meg tudjátok dönteni a rekordot?"
     }
 }

@@ -13,5 +13,10 @@
     "image": ["[0-9]+"],
     "text,hybrid": null,
     "semantic_text": ["[0-9]+", "Reihe", "Zeile", "Spalte"]
+  },
+  "hu": {
+    "image": ["[0-9]+"],
+    "text,hybrid": null,
+    "semantic_text": ["[0-9]+", "sor", "oszlop", "vonal"]
   }
 }

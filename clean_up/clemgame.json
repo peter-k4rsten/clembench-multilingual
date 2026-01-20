@@ -5,7 +5,7 @@
     "main_game": "clean_up",
     "players": 2,
     "image": "none",
-    "languages": ["en", "zh-CN", "de", "it"],
+    "languages": ["en", "zh-CN", "de", "it", "hu"],
     "benchmark": []
   },
   {
@@ -15,7 +15,7 @@
     "players": 2,
     "instances": "mm_instances",
     "image": "multi",
-    "languages": ["en", "zh-CN", "de"],
+    "languages": ["en", "zh-CN", "de", "hu"],
     "benchmark": []
   },
   {
@@ -25,7 +25,7 @@
     "players": 2,
     "instances": "hybrid_instances",
     "image": "multi",
-    "languages": ["en", "zh-CN", "de"],
+    "languages": ["en", "zh-CN", "de", "hu"],
     "benchmark": []
   },
   {
@@ -35,7 +35,7 @@
     "players": 2,
     "instances": "st_instances",
     "image": "multi",
-    "languages": ["en", "zh-CN", "de"],
+    "languages": ["en", "zh-CN", "de", "hu"],
     "benchmark": []
   }
 ]

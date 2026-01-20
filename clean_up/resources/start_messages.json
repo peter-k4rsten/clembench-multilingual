@@ -10,5 +10,9 @@
     "de": {
         "p1_start": "\nSchicke eine Nachricht an deinen Mitspieler um das Spiel zu starten!",
         "p2_start": "\nDein Mitspieler hat das Spiel mit dieser Nachricht begonnen:\n\n\"$start_message\"\n\nWie lautet dein erster Befehl?"
+    },
+    "hu": {
+        "p1_start": "\n\nKérlek, küldj egy üzenetet a másik játékosnak a játék elindításához!",
+        "p2_start": "\nA másik játékos ezzel az üzenettel indította el a játékot:\n\n\"$start_message\"\n\nMi az első parancsod?"
     }
 }

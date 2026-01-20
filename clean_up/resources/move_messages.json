@@ -28,5 +28,15 @@
     "out_of_bounds": "Ungültiger Zug: ($x,$y) liegt außerhalb des Spielfeldes. Bitte versuche es erneut!\n\n",
     "not_empty": "Strafpunkt: ($x,$y) ist nicht leer, sondern enthält '$object'.\n",
     "obj_not_found": "Ungültiger Zug: Dein Bild enthält kein Objekt mit der ID '$object'. Bitte versuche es erneut!\n\n"
+  },
+  "hu": {
+    "successful": {
+      "text,semantic_text": "A(z) '$object' sikeresen át lett mozgatva ide: ($x,$y). A frissített rácsod így néz ki:\n```\n$grid```\n",
+      "image": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n",
+      "hybrid": "A(z) '$object' tárgyat sikeresen áthelyezted a ($x,$y) pozícióra. A frissített képed csatolva van.\n\n"
+    },
+    "out_of_bounds": "Érvénytelen lépés: ($x,$y) a rácson kívül esik. Kérlek, próbáld újra!\n\n",
+    "not_empty": "Büntetés: a ($x,$y) pozíció nem üres, tartalmazza: '$object'.\n",
+    "obj_not_found": "Érvénytelen lépés: a képen nincs olyan tárgy, amelynek azonosítója '$object'. Kérlek, próbáld újra!\n\n"
   }
 }

@@ -49,5 +49,22 @@
         "penalty_counter": "你和另一位玩家累计已犯规 $penalty 次，最多允许 $max_penalties 次犯规。\n",
         "penalty_reprompt": "请重试！",
         "round_counter": "你当前正在进行第$round回合，最多共$max_rounds回合。\n"
+    },
+    "hu": {
+        "invalid_response": {
+            "text,hybrid": "Büntetés: $reason\n\nGyőződj meg róla, hogy a válaszod kizárólag a `$say` vagy `$move` parancsot tartalmazza, és semmi mást!\n",
+            "image": "Büntetés: $reason\n\nGyőződj meg róla, hogy:\n\n* az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat vagy koordinátákat!\n* a válaszod kizárólag a `$say` vagy `$move` parancsot tartalmazza, és semmi mást! Ne használj formázást, megjegyzéseket vagy indoklást!\n",
+            "semantic_text": "Büntetés: $reason\n\n* Győződj meg róla, hogy az üzenetek, amelyeket a másik játékosnak küldesz, nem tartalmaznak számokat, koordinátákat vagy olyan kulcsszavakat, mint 'sor/oszlop/vonal'! Használj háttérbeli tárgyakat tájékozódási pontként, és írj leíró kifejezéseket, mint például 'balra/jobbra/fölötte/alatta' a célpozíció megadásához!\n* Győződj meg róla, hogy a válaszod kizárólag a `$say` vagy `$move` parancsot tartalmazza, és semmi mást!\n"
+        },
+        "message_relay": "Az üzeneted továbbítva lett a másik játékosnak.\n\n\n",
+        "command_prompt": "\n\n\nMi legyen a következő parancsod?",
+        "new_turn_move": {
+            "text,semantic_text": "A másik játékos mozgatott egy tárgyat a saját rácsán.",
+            "image,hybrid": "A másik játékos mozgatott egy ikont a saját képén."
+        },
+        "new_turn": "A másik játékos ezt az üzenetet küldte:\n\n\n\"$turn_message\"",
+        "penalty_counter": "Eddig összesen $penalty büntetést kaptatok a megengedett $max_penalties-ból/ből.\n",
+        "penalty_reprompt": "Kérlek, próbáld újra!",
+        "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum $max_rounds körből.\n"
     }
 }
