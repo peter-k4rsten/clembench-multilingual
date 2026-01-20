@@ -18,12 +18,14 @@ I want you to describe this grid to me, step by step. You don't need to describe
 
 For the filled grid above, here are the example steps.
 
-Command: Put an E in second row third column
+You write: Command: Put an E in second row third column
 
-What is your next command?
-Command: Fill the last row with X
+I ask you: What is your next command?
 
-What is your next command?
-Command: DONE
+You write: Command: Fill the last row with X
+
+I ask you: What is your next command?
+
+You write: Command: DONE
 
 Ok. Please do this for the following example, which is a GRID_DIMENSION grid.

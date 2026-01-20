@@ -9,6 +9,7 @@ from random import randint
 import logging
 
 from clemcore.clemgame import GameInstanceGenerator
+from resources.localization_utils import MULTILINGUAL_PATTERNS
 
 N_INSTANCES = 20
 
@@ -102,10 +103,11 @@ class ImageGameInstanceGenerator(GameInstanceGenerator):
         super().__init__(os.path.dirname(__file__))
 
     def on_generate(self, seed: int, **kwargs):
+        lang = kwargs["lang"]
 
-        player_a_prompt_header = self.load_template(f"resources/initial_prompts/player_a_prompt_header.template")
-        player_b_prompt_header = self.load_template(f"resources/initial_prompts/player_b_prompt_header.template")
-        prompt_question = self.load_template(f"resources/initial_prompts/prompt_question.template")
+        player_a_prompt_header = self.load_template(f"resources/initial_prompts/{lang}/player_a_prompt_header.template")
+        player_b_prompt_header = self.load_template(f"resources/initial_prompts/{lang}/player_b_prompt_header.template")
+        prompt_question = self.load_template(f"resources/initial_prompts/{lang}/prompt_question.template")
         initial_grids = self.load_json("resources/grids_v3.0.json")
 
         compact_grids = []
@@ -142,18 +144,28 @@ class ImageGameInstanceGenerator(GameInstanceGenerator):
 
                 game_instance = self.add_game_instance(experiment, grid_index)
 
-                game_instance["player_1_prompt_header"] = player_a_prompt_header.replace('GRID_DIMENSION', str(grid_dimension) + ' by ' + str(grid_dimension))
-                game_instance["player_2_prompt_header"] = player_b_prompt_header.replace('GRID_DIMENSION', str(grid_dimension) + ' by ' + str(grid_dimension))
+                dim = MULTILINGUAL_PATTERNS[lang]["dimension_format"].format(n=grid_dimension)
+
+                game_instance["player_1_prompt_header"] = player_a_prompt_header.replace('GRID_DIMENSION', dim)
+                game_instance["player_2_prompt_header"] = player_b_prompt_header.replace('GRID_DIMENSION', dim)
                 game_instance["player_1_question"] = prompt_question
                 game_instance['grid_dimension'] = grid_dimension
                 game_instance['number_of_letters'] = grid.count('X')
-                game_instance['player_1_response_pattern'] = '^command: [^\n]+$'
-                game_instance['player_1_terminate_pattern'] = '^\s*command\s*:\s*done\s*$'
+                tag = MULTILINGUAL_PATTERNS[lang]["command_tag"]
+                done = MULTILINGUAL_PATTERNS[lang]["done_word"]
+                game_instance['player_1_response_pattern'] = rf'^{tag}\s*[^\n]+$'
+                game_instance['player_1_terminate_pattern'] = rf'^{tag}\s*{done}\s*$'
                 game_instance['player_2_response_pattern'] = '^\n*([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n*$'
                 game_instance['fill_row'] = False
                 game_instance['fill_column'] = False
                 game_instance['target_grid'] = grid
+                game_instance["lang"] = lang
 
 
 if __name__ == '__main__':
-    ImageGameInstanceGenerator().generate(seed=123)
+    for lang in MULTILINGUAL_PATTERNS.keys():
+        ImageGameInstanceGenerator().generate(
+            seed=123,
+            lang=lang,
+            filename=f"instances_v3.0_{lang}.json"
+        )

@@ -1,0 +1,19 @@
+Rajzoljunk együtt valamit. Van egy üres rács, amelynek a mérete 5×5, így néz ki:
+
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+
+Olyan parancsokat fogok adni, mint például: „tegyél egy X-et bal felülre”, te pedig a parancs végrehajtása után visszaadod a rácsot, így:
+
+Parancs: tegyél egy X-et bal felülre
+
+X ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+
+Most hozz létre egy üres, GRID_DIMENSION méretű rácsot, és hajtsd végre a következő parancsokat lépésről lépésre. Miután végrehajtottad a parancsot, csak a rácsot add vissza, minden más szöveget hagyj ki a kimenetből.

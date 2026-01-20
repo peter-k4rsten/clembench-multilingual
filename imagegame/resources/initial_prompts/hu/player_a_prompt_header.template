@@ -1,0 +1,31 @@
+Végezzük el a következő feladatot. A cél egy üres rács feltöltése, amely így néz ki:
+
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+
+Egy kitöltött, 5×5-ös rács például így nézhet ki:
+
+▢ ▢ ▢ ▢ ▢
+▢ ▢ E ▢ ▢
+▢ ▢ ▢ ▢ ▢
+▢ ▢ ▢ ▢ ▢
+X X X X X
+
+Szeretném, ha lépésről lépésre leírnád ezt a rácsot. Nem kell leírnod az üres négyzeteket, amelyeket „▢” jelöl. Csak a betűk helyét írd le a rácsban. Utána várd meg, amíg azt mondom: „Mi a következő parancsod?” és akkor folytatod a következő lépéssel. A rács méretét vedd figyelembe a parancsok megadása során. Egy lépésben csak egyetlen parancsot adhatsz, de a parancs utalhat egy vagy több cellára, sorra, oszlopra vagy akár az egész rácsra egyszerre. Amikor mindent leírtál, ezt írd: „Parancs: kész”. Csak a parancsot írd, minden mást hagyj el.
+
+Itt vannak a fenti kitöltött rács példájához tartozó példalépések:
+
+Te írod: Parancs: Tegyél egy E betűt a második sor harmadik oszlopába
+
+Én kérdezlek: Mi a következő parancsod?
+
+Te írod: Parancs: Töltsd ki az utolsó sort X-ekkel
+
+Én kérdezlek: Mi a következő parancsod?
+
+Te írod: Parancs: KÉSZ
+
+Rendben. Kérlek, ezt tedd meg a következő példára, amely egy GRID_DIMENSION rács.

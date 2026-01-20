@@ -6,6 +6,7 @@ from clemcore.clemgame import GameMaster, GameBenchmark, metrics, Player, GameSp
 from clemcore.clemgame.legacy.master import DialogueGameMaster
 from clemcore.clemgame.legacy.scorer import GameScorer
 from evaluator import evaluate, calculate_flipped_pixels
+from resources.localization_utils import MULTILINGUAL_PATTERNS
 
 import re
 import math
@@ -44,6 +45,7 @@ class ImageGame:
         self.current_turn = 0
         self.max_rounds = self.grid_dimension * self.grid_dimension * 2
         self.terminate = False
+        self.lang = game_instance["lang"]
 
 
 class ImageGameMaster(DialogueGameMaster):
@@ -68,6 +70,8 @@ class ImageGameMaster(DialogueGameMaster):
         p1_initial_prompt = self.game.player_1_prompt_header + '\n' + self.game.target_grid + '\n' + self.game.player_1_question
         self.add_player(self.instruction_giver, initial_context=p1_initial_prompt)
         self.add_player(self.instruction_follower, initial_prompt=self.game.player_2_prompt_header)
+        self.instruction_giver.lang = self.game.lang
+        self.instruction_follower.lang = self.game.lang
 
     def _validate_player_response(self, player: Player, response: str) -> bool:
         """
@@ -168,6 +172,8 @@ class ImageGameScorer(GameScorer):
         self.player1_response_pattern = r'{}'.format(game_instance["player_1_response_pattern"])
         self.player2_response_pattern = r'{}'.format(game_instance["player_2_response_pattern"])
         self.player1_terminate_pattern = r'{}'.format(game_instance["player_1_terminate_pattern"])
+        self.lang = game_instance["lang"]
+        self.command_tag = MULTILINGUAL_PATTERNS[self.lang]["command_tag"]
                     
     def compute_scores(self, episode_interactions: Dict) -> None:
 
@@ -231,12 +237,12 @@ class ImageGameScorer(GameScorer):
             number_of_turns += 1
 
             # Player 1 - message length
-            expression_length = len(player_1_message.replace('Instruction:', '').strip())
+            expression_length = len(player_1_message.replace(self.command_tag, '').strip())
             self.log_turn_score(t_index, 'Generated Expression Length', expression_length)
             expression_length_sum += expression_length
 
             # Player 1 - number of tokens in the generated expression
-            number_of_tokens = len(player_1_message.replace('Instruction:', '').strip().split(' '))
+            number_of_tokens = len(player_1_message.replace(self.command_tag, '').strip().split(' '))
             self.log_turn_score(t_index, 'Generated Expression Number of Tokens', number_of_tokens)
             expression_number_of_tokens += number_of_tokens
 

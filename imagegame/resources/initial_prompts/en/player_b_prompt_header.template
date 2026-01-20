@@ -1,4 +1,4 @@
-Let us draw something together. There is an empty grid with a size 5 by 5, like so:
+Let us draw something together. There is an empty grid with a size 5 by 5, like this:
 
 ▢ ▢ ▢ ▢ ▢
 ▢ ▢ ▢ ▢ ▢
@@ -6,7 +6,7 @@ Let us draw something together. There is an empty grid with a size 5 by 5, like 
 ▢ ▢ ▢ ▢ ▢
 ▢ ▢ ▢ ▢ ▢
 
-I will give you commands like "put an X in the top left", and you return the grid by applying the given command, like so:
+I will give you commands like "put an X in the top left", and you return the grid by applying the given command, like this:
 
 Command: put an X in the top left
 
