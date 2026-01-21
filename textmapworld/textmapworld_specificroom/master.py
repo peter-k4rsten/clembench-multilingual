@@ -16,6 +16,7 @@ import random
 
 from textmapworld_utils import loop_identification, get_directions, string_available_directions, have_common_element, \
     get_nextnode_label
+from config_languages import LANG_CONFIG
 
 INVALID = 0
 
@@ -47,6 +48,8 @@ class PathDescriber(Player):
         self.visited_nodes = []
         self.current_node = game_instance["Current_Position"]
         self.visited_nodes.append(self.current_node)
+        self.lang = game_instance.get("Lang", "en")
+        self.direction_map = LANG_CONFIG[self.lang]["direction_map"]
 
     def check_path_answer(self, utterance: str, directions: List[str], node, saved_node) -> List[Dict]:
         previous_direction = get_directions(node, directions, saved_node)
@@ -102,12 +105,28 @@ class PathDescriber(Player):
                 0]  ##because if there is ambiguity, the node is saved as "Kitchen_(1,2)"
         if validation != "not valid":
             positive_answer = self.positive_answer
+
+            reverse_dir_map = {v: k for k, v in self.direction_map.items()}
+            if isinstance(self.directions_next_node, str):
+                directions_list = [d.strip() for d in self.directions_next_node.split(",")]
+            else:
+                directions_list = self.directions_next_node
+            localized_directions = [reverse_dir_map.get(d, d) for d in directions_list]
+            self.directions_next_node = ", ".join(localized_directions)
             positive_answer = positive_answer.replace("$DIRECTIONS$", self.directions_next_node)
             if self.graph_type == "named_graph":
                 positive_answer = positive_answer.replace("$ANOTHER_ROOM$", current_location)
             utterance = positive_answer
         else:
             negative_answer = self.negative_answer
+
+            reverse_dir_map = {v: k for k, v in self.direction_map.items()}
+            if isinstance(self.directions_next_node, str):
+                directions_list = [d.strip() for d in self.directions_next_node.split(",")]
+            else:
+                directions_list = self.directions_next_node
+            localized_directions = [reverse_dir_map.get(d, d) for d in directions_list]
+            self.directions_next_node = ", ".join(localized_directions)
             negative_answer = negative_answer.replace("$DIRECTIONS$", self.directions_next_node)
             if self.graph_type == "named_graph":
                 negative_answer = negative_answer.replace("$SAME_ROOM$", current_location)
@@ -157,6 +176,12 @@ class textmapworld_specificroom(DialogueGameMaster):
             self.playerA_initial_prompt = self.playerA_initial_prompt.replace("$INITIAL_ROOM$", initial_directions)
         self.initial_directions = get_directions(self.initial_position, self.directions, self.initial_position)
         self.changed_initial_directions = string_available_directions(self.initial_directions)
+        dir_map = LANG_CONFIG[self.describer.lang]["direction_map"]
+        reverse_dir_map = {v: k for k, v in dir_map.items()}
+        localized_dirs = [reverse_dir_map.get(d, d) for d in self.changed_initial_directions.split(", ")]
+
+        self.changed_initial_directions = ", ".join(localized_dirs)
+
         self.playerA_initial_prompt = self.playerA_initial_prompt.replace("$INITIAL_DIRECTIONS$",
                                                                           self.changed_initial_directions)
         self.playerA_initial_prompt = self.playerA_initial_prompt.replace("$GOAL$", self.specific_room)

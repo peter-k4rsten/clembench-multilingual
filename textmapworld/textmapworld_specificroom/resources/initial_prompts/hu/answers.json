@@ -1,0 +1,10 @@
+{
+"PositiveAnswerNamedGame":
+"Léptél egyet, és beléptél a(z) $ANOTHER_ROOM$ helyiségbe. Jelenleg elérhető irányok: $DIRECTIONS$. Mi a következő utasításod?",
+"PositiveAnswerUnnamedGame":
+"Léptél egyet, és egy másik helyiségbe léptél be. Jelenleg elérhető irányok: $DIRECTIONS$. Mi a következő utasításod?",
+"NegativeAnswerNamedGame":
+"A lépés nem érvényes. Továbbra is a(z) $SAME_ROOM$ helyiségben vagy. Jelenleg elérhető irányok: $DIRECTIONS$. Mi a következő utasításod?",
+"NegativeAnswerUnnamedGame":
+"A lépés nem érvényes. Továbbra is ugyanabban a helyiségben vagy. Jelenleg elérhető irányok: $DIRECTIONS$. Mi a következő utasításod?"
+}

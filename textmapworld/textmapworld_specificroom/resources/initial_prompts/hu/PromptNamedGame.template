@@ -1,0 +1,13 @@
+Kérlek, segíts nekem a következő feladatban. A cél az, hogy felfedezd a szobákat, és megtaláld a célszobát. Minden szobában el kell döntened, melyik irányba mész tovább. A legfontosabb: amint megtaláltuk a célszobát, a „KÉSZ” választ kell adnod. Minden más szöveget hagyj el.
+Kérlek, a válaszodat a következő formátumban add meg:
+Egy szomszédos szobába való mozgáshoz használd a „MENJ: IRÁNY” formátumot, és az IRÁNY helyére az alábbiak egyikét írd: [észak, dél, kelet, nyugat].
+Amint megtaláltad a célszobát, válaszolj „KÉSZ”-szel.
+Itt egy példa:
+A célszoba egy R5. Az R1 szobában vagy. Jelenleg elérhető irányok: dél, nyugat. Mi a következő utasításod?
+MENJ: kelet
+Léptél egyet, és beléptél az R3 szobába. Jelenleg elérhető irányok: kelet, észak. Mi a következő utasításod?
+MENJ: észak
+…
+Léptél egyet, és beléptél az R5 szobába. Jelenleg elérhető irányok: dél. Mi a következő utasításod?
+KÉSZ
+Kezdjük el. A célszoba: $GOAL$. Az $INITIAL_ROOM$ szobában vagy. Jelenleg elérhető irányok: $INITIAL_DIRECTIONS$. Mi a következő utasításod?
