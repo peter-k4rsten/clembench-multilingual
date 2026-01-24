@@ -23,9 +23,18 @@ INVALID = 0
 
 class PathGuesser(Player):
 
+    def __init__(self, model: Model, move_token: str, directions: List[str]):
+        super().__init__(model)
+        self.move_token = move_token
+        self.directions = directions
+
     def _custom_response(self, context):
-        random_path = random.choice(["north", "south", "east", "west"])
-        return f'GO: {random_path}'
+        random_path = random.choice(self.directions)
+        answer = {}
+        answer["action"] = f"{self.move_token}: {random_path}"
+        answer["graph"] = {"nodes": [], "edges": {}}
+        answer = str(answer).replace("'", "\"")  # we have to undo the quote inversion of str()
+        return answer
 
 
 class PathDescriber(Player):
@@ -149,6 +158,9 @@ class textmapworld_specificroom(DialogueGameMaster):
         self.limit_reached = False
 
     def _on_setup(self, **game_instance):
+
+        language = game_instance["Language"]
+        cfg = LANG_CONFIG[language]
         self.graph_type = game_instance['Game_Type']
         self.initial_position = game_instance["Current_Position"]
         self.playerA_initial_prompt = game_instance["Prompt"]
@@ -157,7 +169,7 @@ class textmapworld_specificroom(DialogueGameMaster):
         self.move_construction = game_instance["Move_Construction"]
         self.stop_construction = game_instance["Stop_Construction"]
 
-        self.guesser = PathGuesser(self.player_models[0])
+        self.guesser = PathGuesser(self.player_models[0], move_token=cfg["MOVE"], directions=cfg["DIRECTIONS"])
         self.describer = PathDescriber(game_instance)
         self.add_player(self.guesser)
         self.add_player(self.describer)
