@@ -268,43 +268,20 @@ class GraphGenerator:
 
             def assign_types(ambiguity, graph):
 
-                rooms = ["Bedroom", "Living room", "Kitchen", "Bathroom", "Dining room", "Study room", "Guest room", "Game room", "Home office", "Laundry room", "Pantry", "Attic",
-                                "Basement", "Garage", "Sunroom", "Mudroom", "Closet", "Library", "Foyer", "Nursery", "Home gym", "Media room", "Home theater", "Playroom", "Utility room", "Workshop",
-                                "Conservatory", "Craft room", "Music room", "Gallery", "Sauna", "Billiard room", "Bar", "Wine cellar", "Cellar", "Exercise room", "Studio", "Recreation room", "Solarium", "Balcony"]
                 graph_unnamed_nodes = list(graph.nodes())
-                total_nodes = len(graph.nodes())
+                total_nodes = len(graph_unnamed_nodes)
 
-                repetition_rooms, repetition_times = ambiguity[:2] if ambiguity!= None else (0, 0)
-                if (repetition_rooms * repetition_times) > total_nodes:
-                    return "The number of rooms is greater than the number of nodes in the graph"
-                else:
-                    # Generate a mapping from old node labels to room names for nodes specified by ambiguity
-                    mapping = {}
-                    if repetition_rooms > 0:
-                        mapping = {}
-                        repeated_nodes = random.sample(rooms, repetition_rooms)
-                        for node in repeated_nodes:
-                            rooms.remove(node)
-                            for _ in range(repetition_times):
-                                random_unnamed_node = random.choice(graph_unnamed_nodes)
-                                mapping[random_unnamed_node] = node
-                                graph_unnamed_nodes.remove(random_unnamed_node)
+                # R1, R2, ..., RN
+                mapping = {}
+                for i, node in enumerate(graph_unnamed_nodes):
+                    mapping[node] = f"R{i + 1}"
 
-                    if len(graph_unnamed_nodes)>0:
-                        # Randomly rename remaining nodes
-                        random_rooms = random.sample(rooms, len(graph_unnamed_nodes))
-                        for node in graph_unnamed_nodes:
-                            mapping[node] = random.choice(random_rooms)
-                            random_rooms.remove(mapping[node])
-
-                    # Rename nodes using relabel_nodes function
-                    if mapping:
-                        if self.random_room in mapping:
-                            if self.ambiguity != None:
-                                self.random_room = f"{mapping[self.random_room]}_{self.random_room}"
-                            else:
-                                self.random_room = mapping[self.random_room]
-                    return mapping
+                if self.random_room in mapping:
+                    if self.ambiguity is not None:
+                        self.random_room = f"{mapping[self.random_room]}_{self.random_room}"
+                    else:
+                        self.random_room = mapping[self.random_room]
+                return mapping
             
 
         def save_graph_picture(graph):

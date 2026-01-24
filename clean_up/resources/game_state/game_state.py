@@ -21,9 +21,8 @@ from PIL import ImageDraw
 from PIL import ImageFont
 
 from sympy import im
-# i changed the imports for the runs
-# clean_up.resources.game_state.
-from .utils import GameObject, Icon, png_to_base64, number_to_letter, letter_to_number, EMPTY_SYMBOL, parse_grid
+
+from resources.game_state.utils import GameObject, Icon, png_to_base64, number_to_letter, letter_to_number, EMPTY_SYMBOL, parse_grid
 
 logger = logging.getLogger(__name__)
 

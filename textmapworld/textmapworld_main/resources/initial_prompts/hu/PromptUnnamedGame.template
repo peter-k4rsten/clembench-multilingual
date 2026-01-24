@@ -1,14 +1,14 @@
-Kérlek, segíts a következő feladatban. A cél az, hogy a lehető legkevesebb szobaváltással bejárd az összes helyiséget. Minden helyiségben el kell döntened, hogy melyik irányba mész tovább. Fel kell ismerned azt is, amikor már nincs új szoba, amit meglátogathatnál, és ekkor jelezned kell, hogy végeztél.
-Kérlek, az alábbi formátumban add meg a válaszodat:
-Ha egy szomszédos szobába szeretnél lépni, használd: „MENJ: IRÁNY”, ahol az IRÁNY az alábbiak egyike lehet: [észak, dél, kelet, nyugat].
-Ha szeretnéd befejezni a felfedezést, válaszolj ezzel: „KÉSZ”.
-Bármilyen más szöveget hagyj el.
-Íme egy példa:
-Egy kezdeti szobában vagy. Jelenleg elérhető irányok: dél, nyugat. Mi a következő utasításod?
+Kérlek, segíts nekem a következő feladatban. A cél az, hogy az összes szobát a lehető legkevesebb szobaváltással látogassuk meg. Minden szobában el kell döntened, melyik irányba mész tovább. Fel kell ismerned azt is, amikor már nincs több új szoba, amit meglátogathatnánk, és ekkor úgy kell döntened, hogy befejeztük.
+Kérlek, a válaszodat a következő formátumban add meg:
+Egy szomszédos szobába való mozgáshoz használd a „MENJ: IRÁNY” formátumot, és az IRÁNY helyére az alábbiak egyikét írd: [észak, dél, kelet, nyugat].
+A felfedezés leállításához a „KÉSZ” választ add meg.
+Minden más szöveget hagyj el.
+Itt egy példa:
+A kezdő szobában vagy. Jelenleg elérhető irányok: dél, nyugat. Mi a következő utasításod?
 MENJ: nyugat
 Léptél egyet, és beléptél egy másik szobába. Jelenleg elérhető irányok: kelet, észak. Mi a következő utasításod?
 MENJ: észak
-...
+…
 Léptél egyet, és beléptél egy másik szobába. Jelenleg elérhető irányok: dél. Mi a következő utasításod?
 KÉSZ
-Kezdjük el. Egy kezdeti szobában vagy. Jelenleg elérhető irányok: $INITIAL_DIRECTIONS$. Mi a következő utasításod?
+Kezdjük el. A kezdő szobában vagy. Jelenleg elérhető irányok: $INITIAL_DIRECTIONS$. Mi a következő utasításod?

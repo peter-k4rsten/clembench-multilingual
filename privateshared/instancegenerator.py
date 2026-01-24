@@ -70,7 +70,6 @@ class PrivateSharedGameInstanceGenerator(GameInstanceGenerator):
 
     def __init__(self):
         super().__init__(os.path.dirname(__file__))
-        # moved lang to on_generate
 
 
     def on_generate(self, seed: int, **kwargs):

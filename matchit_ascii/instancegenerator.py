@@ -26,11 +26,11 @@ class MatchItAsciiInstanceGenerator(GameInstanceGenerator):
 
     def __init__(self):
         super().__init__(os.path.dirname(__file__))
-        self.lang = None # add lang
+        self.lang = None
 
     def on_generate(self, seed: int, **kwargs):
         print("current path:", self.game_path)
-        self.lang = kwargs["lang"] # add lang
+        self.lang = kwargs["lang"]
 
         # Flags that have to be at the beginning of each response; are also specified in the prompts
         # changed
