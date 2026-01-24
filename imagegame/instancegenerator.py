@@ -9,8 +9,7 @@ from random import randint
 import logging
 
 from clemcore.clemgame import GameInstanceGenerator
-
-from resources.localization_utils import MULTILINGUAL_PATTERNS # add import
+from resources.localization_utils import MULTILINGUAL_PATTERNS
 
 N_INSTANCES = 20
 
@@ -104,7 +103,7 @@ class ImageGameInstanceGenerator(GameInstanceGenerator):
         super().__init__(os.path.dirname(__file__))
 
     def on_generate(self, seed: int, **kwargs):
-        lang = kwargs["lang"] # add lang
+        lang = kwargs["lang"]
 
         player_a_prompt_header = self.load_template(f"resources/initial_prompts/{lang}/player_a_prompt_header.template")
         player_b_prompt_header = self.load_template(f"resources/initial_prompts/{lang}/player_b_prompt_header.template")
@@ -145,38 +144,25 @@ class ImageGameInstanceGenerator(GameInstanceGenerator):
 
                 game_instance = self.add_game_instance(experiment, grid_index)
 
-                # add dim from patterns
                 dim = MULTILINGUAL_PATTERNS[lang]["dimension_format"].format(n=grid_dimension)
 
-                # adjust replacement of grid dim
-                game_instance["player_1_prompt_header"] = player_a_prompt_header.replace(
-                    "$GRID_DIMENSION$", dim
-                )
-                game_instance["player_2_prompt_header"] = player_b_prompt_header.replace(
-                    "$GRID_DIMENSION$", dim
-                )
+                game_instance["player_1_prompt_header"] = player_a_prompt_header.replace('GRID_DIMENSION', dim)
+                game_instance["player_2_prompt_header"] = player_b_prompt_header.replace('GRID_DIMENSION', dim)
                 game_instance["player_1_question"] = prompt_question
                 game_instance['grid_dimension'] = grid_dimension
                 game_instance['number_of_letters'] = grid.count('X')
-
-                # add tag and done for langs
                 tag = MULTILINGUAL_PATTERNS[lang]["command_tag"]
                 done = MULTILINGUAL_PATTERNS[lang]["done_word"]
-
-                # adjust response and terminate patterns
                 game_instance['player_1_response_pattern'] = rf'^{tag}\s*[^\n]+$'
                 game_instance['player_1_terminate_pattern'] = rf'^{tag}\s*{done}\s*$'
                 game_instance['player_2_response_pattern'] = '^\n*([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n([A-Z▢]\s){4}[A-Z▢]\n*$'
                 game_instance['fill_row'] = False
                 game_instance['fill_column'] = False
                 game_instance['target_grid'] = grid
-
-                # add lang
                 game_instance["lang"] = lang
 
 
 if __name__ == '__main__':
-    # adjust
     for lang in MULTILINGUAL_PATTERNS.keys():
         ImageGameInstanceGenerator().generate(
             seed=123,

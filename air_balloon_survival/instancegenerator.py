@@ -26,7 +26,7 @@ N_INSTANCES = 5
 SEED = 1
 
 ONLY_INDIVIDUAL = False # variable indicates if only individual player scores are needed. (Allows for games with more items)
-LANGUAGE = 'hu' # must be 'de' or 'en'
+LANGUAGE = 'en' # must be 'de' or 'en'
 ITEMS_LIST = f'resources/{LANGUAGE}/items.json'  # Path to a text file containing items for the game
 N_ITEMS = 15 # Number of items to select for each game instance
 CATEGORY = "generated_words"  # must be 'generated_words' or 'common_nouns'

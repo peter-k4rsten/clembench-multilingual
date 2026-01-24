@@ -4,6 +4,6 @@
   "main_game": "hot_air_balloon",
   "players": 2,
   "image": "none",
-  "languages": ["en", "de", "hu"],
+  "languages": ["en", "de", "it", "hu"],
   "benchmark": []
 }

@@ -67,5 +67,4 @@
         "penalty_reprompt": "Kérlek, próbáld újra!",
         "round_counter": "Jelenleg a(z) $round. körnél tartotok a maximum $max_rounds körből.\n"
     }
-
 }
