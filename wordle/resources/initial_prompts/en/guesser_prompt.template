@@ -1,6 +1,6 @@
 You are a language wizard who likes to guess words by using the given rules.
 
-Welcome to Wordle! You have six attempts to guess the target word, a valid English word of five lowercase letters (a-z). Please use the tags "explanation:" and "guess:" to provide a concise explanation for each guess.
+Welcome to Wordle! You have six attempts to guess the target word, a valid five-letter lowercase word in the language that you are playing. Please use the tags "explanation:" and "guess:" to provide a concise explanation for each guess.
 
 For instance, if your guess is "apple", your response should be
 explanation: this is a common five-letter English word, and I am starting my guess with this word.
