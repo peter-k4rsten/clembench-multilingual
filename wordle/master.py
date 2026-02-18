@@ -261,8 +261,6 @@ class Wordle(DialogueGameMaster):
         words_dict["guess_agreement_lang"] = "guess_agreement:"
         words_dict["agreement_explanation_lang"] = "agreement_explanation:"
         words_dict["agreement_match_keywords_lang"] = ["yes", "no"]
-        words_dict["allowed_words_file_url"] = "https://raw.githubusercontent.com/3b1b/videos/master/_2022/wordle/data/allowed_words.txt"
-        words_dict["word_clues_file_url"] = "https://www.kaggle.com/datasets/darinhawley/new-york-times-crossword-clues-answers-19932021?select=nytcrosswords.csv"
         words_dict["error_prompt_text"] = {
             "INVALID_WORD_LENGTH": "The guess should have exactly 5 letters.",
             "INVALID_WORD": "The guess should contain only letters.",

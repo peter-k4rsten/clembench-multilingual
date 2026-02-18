@@ -161,8 +161,8 @@ class InstanceUtils(GameResourceLocator):
         # Crosswords Clues are: List of lists and each sublist has: [date, word, clue]
         # We are only interested in the word and clue
         # Data cleanup happens inside the read_file_contents function
-        word_clues_dict = {}
-        word_clues_dict = self.read_file_contents(f"target_words/{self.language}/clues.csv", file_ext="csv")
+        # word_clues_dict = {}
+        # word_clues_dict = self.read_file_contents(f"target_words/{self.language}/clues.csv", file_ext="csv")
 
         # Currently the categorized words are read directly from the files
         #   without doing the categorization during instance generation
@@ -173,13 +173,13 @@ class InstanceUtils(GameResourceLocator):
         medium_words_list = self.read_file_contents(f"target_words/{self.language}/medium_words.txt")
         hard_words_list = self.read_file_contents(f"target_words/{self.language}/hard_words.txt")
 
-        if not official_words or not word_clues_dict:
+        if not official_words:
             print("Error in reading the word lists, check and download the relevant files")
             return "DATA_NOT_AVAILABLE"
 
         self.official_words = official_words
         # self.target_words = target_words
-        self.word_clues_dict = word_clues_dict
+        # self.word_clues_dict = word_clues_dict
         self.easy_words_list = easy_words_list
         self.medium_words_list = medium_words_list
         self.hard_words_list = hard_words_list
@@ -235,5 +235,5 @@ class InstanceUtils(GameResourceLocator):
 
     def update_game_instance_dict(self, game_instance, word, difficulty):
         game_instance["target_word"] = word
-        game_instance["target_word_clue"] = self.word_clues_dict[word]
+        # game_instance["target_word_clue"] = self.word_clues_dict[word]
         game_instance["target_word_difficulty"] = difficulty

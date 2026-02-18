@@ -49,7 +49,7 @@ if __name__ == "__main__":
     GAME_NAME = "wordle"
     supported_languages = [lang for lang, data in config["languages"].items() if GAME_NAME in data["games"]]
     for language in supported_languages:
-        for variant in ["wordle", "wordle_withclue", "wordle_withcritic"]:
+        for variant in ["wordle"]:  # ["wordle", "wordle_withclue", "wordle_withcritic"]
             file_name = f"instances_{language}.json"
             variant_suffix = variant.split("_")
             if len(variant_suffix) > 1:

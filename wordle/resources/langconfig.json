@@ -15,8 +15,6 @@
             "yes",
             "no"
         ],
-        "allowed_words_file_url": "https://raw.githubusercontent.com/3b1b/videos/master/_2022/wordle/data/allowed_words.txt",
-        "word_clues_file_url": "https://www.kaggle.com/datasets/darinhawley/new-york-times-crossword-clues-answers-19932021?select=nytcrosswords.csv",
         "error_prompt_text": {
             "INVALID_WORD_LENGTH": "The guess should have exactly 5 letters.",
             "INVALID_WORD": "The guess should contain only letters.",
@@ -45,8 +43,6 @@
             "ja",
             "nein"
         ],
-        "allowed_words_file_url": "https://raw.githubusercontent.com/3b1b/videos/master/_2022/wordle/data/allowed_words.txt",
-        "word_clues_file_url": "https://www.kaggle.com/datasets/darinhawley/new-york-times-crossword-clues-answers-19932021?select=nytcrosswords.csv",
         "error_prompt_text": {
             "INVALID_WORD_LENGTH": "Die Vermutung muss genau 5 Buchstaben haben.",
             "INVALID_WORD": "Die Vermutung darf nur Buchstaben enthalten.",
@@ -75,8 +71,6 @@
             "igen",
             "nem"
         ],
-        "allowed_words_file_url": "https://raw.githubusercontent.com/3b1b/videos/master/_2022/wordle/data/allowed_words.txt",
-        "word_clues_file_url": "https://www.kaggle.com/datasets/darinhawley/new-york-times-crossword-clues-answers-19932021?select=nytcrosswords.csv",
         "error_prompt_text": {
             "INVALID_WORD_LENGTH": "A tippnek pontosan 5 betűből kell állnia.",
             "INVALID_WORD": "A tipp csak betűket tartalmazhat.",
